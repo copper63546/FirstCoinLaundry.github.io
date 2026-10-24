@@ -169,16 +169,6 @@
     .hero-badge span { color: var(--muted); font-size: .85rem; }
     @media (max-width: 480px) { .hero-badge { left: 8px; } }
 
-    /* ---------- Free dry policy ---------- */
-    .dry { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-    @media (max-width: 860px) { .dry { grid-template-columns: repeat(2, 1fr); } }
-    .dry .card { padding: 22px 18px; text-align: center; }
-    .dry .load { font-family: "Rubik", system-ui, sans-serif; font-weight: 600; font-size: 1.15rem; }
-    .dry .dryers { display: flex; justify-content: center; gap: 6px; margin: 14px 0 10px; }
-    .dry .dryers span { width: 34px; height: 34px; border-radius: 50%; border: 4px solid var(--primary); background: color-mix(in srgb, var(--aqua) 55%, var(--surface)); }
-    .dry .count { color: var(--muted); font-weight: 700; }
-    .rules { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-    .rules span { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: .9rem; color: var(--muted); font-weight: 500; }
 
     /* ---------- Sections ---------- */
     section { padding: 72px 0; }
@@ -309,7 +299,6 @@
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#how">How it works</a>
-        <a href="#free-dry">Free dry</a>
         <a href="#location">Location</a>
         <a href="#hours">Hours</a>
         <a href="#photos">Photos</a>
@@ -349,7 +338,7 @@
       <div class="stats">
         <div class="card stat"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><b id="statHours">Open 24/7</b><span>Wash anytime</span></div></div>
         <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>Giant Load</b><span>Washers for big loads</span></div></div>
-        <div class="card stat"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>See our dry policy</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>With your wash</span></div></div>
         <div class="card stat"><div class="ico"><svg><use href="#i-shirt"/></svg></div><div><b>Folding tables</b><span>Lots of room to fold</span></div></div>
       </div>
     </div>
@@ -371,31 +360,9 @@
       </div>
     </section>
 
-    <!-- ================= FREE DRY POLICY ================= -->
-    <section id="free-dry" class="alt">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Free dry policy</div>
-          <h2>Wash here, dry for free</h2>
-          <p>Each washer size includes free dryer use. Here's how many dryers you get per load.</p>
-        </div>
-        <div class="dry">
-          <div class="card"><div class="load">Double Load</div><div class="dryers"><span></span></div><div class="count">1 dryer</div></div>
-          <div class="card"><div class="load">Triple Load</div><div class="dryers"><span></span></div><div class="count">1 dryer</div></div>
-          <div class="card"><div class="load">Max Load</div><div class="dryers"><span></span><span></span></div><div class="count">2 dryers</div></div>
-          <div class="card"><div class="load">Mega Load</div><div class="dryers"><span></span><span></span></div><div class="count">Up to 2 dryers</div></div>
-          <div class="card"><div class="load">Ultra Load</div><div class="dryers"><span></span><span></span><span></span></div><div class="count">3 dryers</div></div>
-        </div>
-        <div class="rules">
-          <span>Extra dryers or excessive drying are charged</span>
-          <span>Dry-only is not allowed</span>
-          <span>Rugs are not allowed in dryers</span>
-        </div>
-      </div>
-    </section>
 
     <!-- ================= LOCATION ================= -->
-    <section id="location">
+    <section id="location" class="alt">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Find us</div>
@@ -421,7 +388,7 @@
     </section>
 
     <!-- ================= HOURS ================= -->
-    <section id="hours" class="alt">
+    <section id="hours">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Hours</div>
@@ -452,7 +419,7 @@
     </section>
 
     <!-- ================= PHOTOS ================= -->
-    <section id="photos">
+    <section id="photos" class="alt">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Photos</div>
