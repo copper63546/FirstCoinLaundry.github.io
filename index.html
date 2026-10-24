@@ -8,6 +8,7 @@
   <meta property="og:title" content="First Coin Laundry · Stone Mountain, GA">
   <meta property="og:description" content="Self-service laundromat on Memorial Drive in Stone Mountain, GA.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://copper63546.github.io/FirstCoinLaundry.github.io/images/storefront.jpg">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='4' width='52' height='56' rx='10' fill='%231f4fd1'/%3E%3Ccircle cx='32' cy='36' r='16' fill='%23fff'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%237ad31f'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +29,7 @@
       "postalCode": "30083",
       "addressCountry": "US"
     },
+    "image": "https://copper63546.github.io/FirstCoinLaundry.github.io/images/storefront.jpg",
     "hasMap": "https://www.google.com/maps/search/?api=1&query=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083",
     "openingHoursSpecification": [{
       "@type": "OpeningHoursSpecification",
@@ -150,7 +152,7 @@
     @media (prefers-reduced-motion: reduce) { .bubble { animation: none; } html { scroll-behavior: auto; } }
     .hero-photo { position: relative; }
     .hero-photo img {
-      width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+      width: 100%; aspect-ratio: 1265 / 605; object-fit: cover;
       border-radius: 28px; border: 6px solid var(--surface);
       box-shadow: 0 0 0 4px var(--aqua), var(--shadow);
       transform: rotate(1.5deg);
@@ -249,6 +251,7 @@
     .gallery figure { margin: 0; position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); }
     .gallery figure.big { grid-column: span 2; grid-row: span 2; }
     .gallery figure.wide { grid-column: span 2; }
+    .gallery figure.full { grid-column: 1 / -1; grid-row: span 2; }
     @media (max-width: 760px) {
       .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
       .gallery figure.big { grid-column: span 2; grid-row: span 2; }
@@ -334,7 +337,7 @@
         </div>
 
         <div class="hero-photo">
-          <img src="images/dryers.jpg" alt="Inside First Coin Laundry: a wall of stacked Dexter dryers with lime-green walls and blue trim">
+          <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive with its red and blue sign">
           <div class="hero-badge"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>with your wash</span></div></div>
         </div>
       </div>
@@ -455,6 +458,10 @@
           <h2>Take a look inside</h2>
         </div>
         <div class="gallery">
+          <figure class="full">
+            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy">
+            <figcaption>Storefront</figcaption>
+          </figure>
           <figure class="big">
             <img src="images/dryers.jpg" alt="Wall of stacked Dexter dryers" loading="lazy">
             <figcaption>Dryers</figcaption>
