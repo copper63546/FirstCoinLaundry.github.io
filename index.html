@@ -11,7 +11,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='4' width='52' height='56' rx='10' fill='%231f4fd1'/%3E%3Ccircle cx='32' cy='36' r='16' fill='%23fff'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%237ad31f'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Structured data so Google can show address, phone and hours -->
   <script type="application/ld+json">
@@ -78,13 +78,13 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-family: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3 { font-family: "Fredoka", "DM Sans", sans-serif; line-height: 1.15; margin: 0; }
+    h1, h2, h3 { font-family: "Rubik", system-ui, sans-serif; font-weight: 700; line-height: 1.15; margin: 0; }
     a { color: var(--primary); }
     img { max-width: 100%; display: block; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
@@ -97,7 +97,7 @@
       border-bottom: 1px solid var(--border);
     }
     .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-family: "Rubik", system-ui, sans-serif; font-weight: 600; font-size: 1.2rem; }
     .brand svg { width: 34px; height: 34px; flex: none; }
     .nav-links { display: flex; gap: 22px; }
     .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
@@ -137,7 +137,7 @@
     }
     .dot { width: 10px; height: 10px; border-radius: 50%; background: #22b573; box-shadow: 0 0 0 4px rgba(34,181,115,.18); }
     .dot.closed { background: #e5484d; box-shadow: 0 0 0 4px rgba(229,72,77,.18); }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); margin: 18px 0 14px; letter-spacing: -0.01em; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800; margin: 18px 0 14px; letter-spacing: -0.02em; }
     .hero h1 span { color: var(--primary); }
     .hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 520px; margin: 0 0 28px; }
     .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -163,7 +163,7 @@
     }
     .hero-badge .ico { width: 40px; height: 40px; border-radius: 12px; background: var(--aqua); color: #0e1a33; display: grid; place-items: center; }
     .hero-badge .ico svg { width: 22px; height: 22px; }
-    .hero-badge b { display: block; font-family: "Fredoka", sans-serif; font-weight: 600; }
+    .hero-badge b { display: block; font-family: "Rubik", system-ui, sans-serif; font-weight: 600; }
     .hero-badge span { color: var(--muted); font-size: .85rem; }
     @media (max-width: 480px) { .hero-badge { left: 8px; } }
 
@@ -171,7 +171,7 @@
     .dry { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
     @media (max-width: 860px) { .dry { grid-template-columns: repeat(2, 1fr); } }
     .dry .card { padding: 22px 18px; text-align: center; }
-    .dry .load { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; }
+    .dry .load { font-family: "Rubik", system-ui, sans-serif; font-weight: 600; font-size: 1.15rem; }
     .dry .dryers { display: flex; justify-content: center; gap: 6px; margin: 14px 0 10px; }
     .dry .dryers span { width: 34px; height: 34px; border-radius: 50%; border: 4px solid var(--primary); background: color-mix(in srgb, var(--aqua) 55%, var(--surface)); }
     .dry .count { color: var(--muted); font-weight: 700; }
@@ -194,7 +194,7 @@
     .stat { padding: 22px; display: flex; gap: 14px; align-items: center; }
     .stat .ico { width: 52px; height: 52px; border-radius: 16px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
     .stat .ico svg { width: 28px; height: 28px; }
-    .stat b { display: block; font-family: "Fredoka", sans-serif; font-size: 1.15rem; font-weight: 600; }
+    .stat b { display: block; font-family: "Rubik", system-ui, sans-serif; font-size: 1.15rem; font-weight: 600; }
     .stat span { color: var(--muted); font-size: .9rem; }
     @media (max-width: 480px) { .stat { flex-direction: column; align-items: flex-start; padding: 18px; } }
 
@@ -206,7 +206,7 @@
     .step::before {
       counter-increment: step; content: counter(step);
       position: absolute; top: 18px; right: 20px;
-      font-family: "Fredoka", sans-serif; font-size: 2.6rem; font-weight: 700;
+      font-family: "Rubik", system-ui, sans-serif; font-size: 2.6rem; font-weight: 700;
       color: var(--primary-soft);
     }
     .step .ico { width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: var(--primary-ink); display: grid; place-items: center; margin-bottom: 16px; }
@@ -269,7 +269,7 @@
       color: #fff; border: 0; }
     .contact h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
     .contact p { color: rgba(255,255,255,.88); margin: 10px 0 0; font-size: 1.05rem; }
-    .contact .phone { font-family: "Fredoka", sans-serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; color: #fff; text-decoration: none; display: block; margin-bottom: 14px; }
+    .contact .phone { font-family: "Rubik", system-ui, sans-serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; color: #fff; text-decoration: none; display: block; margin-bottom: 14px; }
     .contact .btn-light { background: #7ad31f; color: #0e1a33; }
     .contact .btn-outline { border-color: rgba(255,255,255,.6); color: #fff; }
     .contact .btn-outline:hover { background: rgba(255,255,255,.12); }
