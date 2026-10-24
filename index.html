@@ -3,124 +3,545 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Penny's Page</title>
+  <title>First Coin Laundry · Stone Mountain, GA</title>
+  <meta name="description" content="First Coin Laundry — self-service laundromat at 4877 Memorial Dr, Stone Mountain, GA 30083. Clean washers and dryers, easy parking. Call (404) 330-8260.">
+  <meta property="og:title" content="First Coin Laundry · Stone Mountain, GA">
+  <meta property="og:description" content="Self-service laundromat on Memorial Drive in Stone Mountain, GA.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='4' width='52' height='56' rx='10' fill='%230b6bcb'/%3E%3Ccircle cx='32' cy='36' r='16' fill='%23fff'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%237fd4f5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Structured data so Google can show address, phone and hours -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Laundromat",
+    "name": "First Coin Laundry",
+    "telephone": "+1-404-330-8260",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4877 Memorial Dr",
+      "addressLocality": "Stone Mountain",
+      "addressRegion": "GA",
+      "postalCode": "30083",
+      "addressCountry": "US"
+    },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083",
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    }]
+  }
+  </script>
+
   <style>
     :root {
-      --bg: #f7f7f5;
-      --text: #1f2328;
-      --muted: #59636e;
-      --accent: #b3530f;
-      --card: #ffffff;
-      --border: #e3e3e0;
+      --bg: #f4f9fd;
+      --surface: #ffffff;
+      --surface-2: #e8f3fb;
+      --text: #0f2236;
+      --muted: #4f6478;
+      --primary: #0b6bcb;
+      --primary-ink: #ffffff;
+      --primary-soft: #d6eafb;
+      --aqua: #7fd4f5;
+      --sun: #ffc94d;
+      --border: #d7e4ef;
+      --shadow: 0 10px 30px rgba(11, 60, 110, 0.10);
+      --radius: 20px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #16181c;
-        --text: #e6e6e6;
-        --muted: #9aa3ad;
-        --accent: #f0883e;
-        --card: #1f2227;
-        --border: #30343a;
+        --bg: #0b1622;
+        --surface: #12212f;
+        --surface-2: #172b3d;
+        --text: #e8f1f8;
+        --muted: #9db2c4;
+        --primary: #4ea8f2;
+        --primary-ink: #06121d;
+        --primary-soft: #183650;
+        --aqua: #5cc3e8;
+        --sun: #ffcf66;
+        --border: #23394d;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       }
     }
+
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    header, main, footer {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-    header { padding-top: 64px; padding-bottom: 24px; }
-    h1 { font-size: 2.4rem; margin: 0 0 8px; }
-    .tagline { color: var(--muted); margin: 0; }
-    nav a {
-      color: var(--accent);
-      text-decoration: none;
-      margin-right: 18px;
-      font-weight: 600;
-    }
-    nav { margin-top: 20px; }
-    section { margin: 40px 0; }
-    h2 {
-      font-size: 1.3rem;
+    h1, h2, h3 { font-family: "Fredoka", "DM Sans", sans-serif; line-height: 1.15; margin: 0; }
+    a { color: var(--primary); }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.2rem; }
+    .brand svg { width: 34px; height: 34px; flex: none; }
+    .nav-links { display: flex; gap: 22px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav-links a:hover { color: var(--primary); }
+    @media (max-width: 760px) { .nav-links { display: none; } }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 999px;
+      font-weight: 700; text-decoration: none; font-size: 0.98rem;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      border: 2px solid transparent; white-space: nowrap;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px;
+    .btn svg { width: 18px; height: 18px; flex: none; }
+    .btn-primary { background: var(--primary); color: var(--primary-ink); box-shadow: 0 6px 18px color-mix(in srgb, var(--primary) 35%, transparent); }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-sm { padding: 8px 14px; font-size: 0.9rem; }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; overflow: hidden; padding: 72px 0 88px; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(600px 400px at 85% 20%, color-mix(in srgb, var(--aqua) 35%, transparent), transparent 70%),
+        radial-gradient(500px 360px at 5% 90%, var(--primary-soft), transparent 70%);
+      pointer-events: none;
     }
-    .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
-    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-    a { color: var(--accent); }
-    footer {
-      color: var(--muted);
-      font-size: 0.85rem;
-      padding-top: 24px;
-      padding-bottom: 48px;
-      border-top: 1px solid var(--border);
+    .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero-art { max-width: 340px; margin: 0 auto; } }
+    .status {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 6px 14px 6px 10px; border-radius: 999px;
+      font-weight: 700; font-size: 0.9rem; box-shadow: var(--shadow);
     }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #22b573; box-shadow: 0 0 0 4px rgba(34,181,115,.18); }
+    .dot.closed { background: #e5484d; box-shadow: 0 0 0 4px rgba(229,72,77,.18); }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); margin: 18px 0 14px; letter-spacing: -0.01em; }
+    .hero h1 span { color: var(--primary); }
+    .hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 520px; margin: 0 0 28px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-addr { margin-top: 22px; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+    .hero-addr svg { width: 18px; height: 18px; color: var(--primary); flex: none; }
+
+    .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), color-mix(in srgb, var(--aqua) 40%, transparent) 60%); opacity: .55; animation: float 9s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .drum { transform-origin: 160px 205px; animation: spin 6s linear infinite; }
+    @media (prefers-reduced-motion: reduce) { .bubble, .drum { animation: none; } html { scroll-behavior: auto; } }
+
+    /* ---------- Sections ---------- */
+    section { padding: 72px 0; }
+    .eyebrow { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; }
+    .section-head { max-width: 640px; margin-bottom: 36px; }
+    .section-head h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-top: 6px; }
+    .section-head p { color: var(--muted); margin: 10px 0 0; font-size: 1.05rem; }
+    .alt { background: var(--surface-2); }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+    /* ---------- Feature stats ---------- */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: -48px; position: relative; z-index: 2; }
+    @media (max-width: 860px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat { padding: 22px; display: flex; gap: 14px; align-items: center; }
+    .stat .ico { width: 52px; height: 52px; border-radius: 16px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+    .stat .ico svg { width: 28px; height: 28px; }
+    .stat b { display: block; font-family: "Fredoka", sans-serif; font-size: 1.15rem; font-weight: 600; }
+    .stat span { color: var(--muted); font-size: .9rem; }
+    @media (max-width: 480px) { .stat { flex-direction: column; align-items: flex-start; padding: 18px; } }
+
+    /* ---------- How it works ---------- */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; counter-reset: step; }
+    @media (max-width: 860px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+    .step { padding: 26px 22px; position: relative; }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; top: 18px; right: 20px;
+      font-family: "Fredoka", sans-serif; font-size: 2.6rem; font-weight: 700;
+      color: var(--primary-soft);
+    }
+    .step .ico { width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: var(--primary-ink); display: grid; place-items: center; margin-bottom: 16px; }
+    .step .ico svg { width: 28px; height: 28px; }
+    .step h3 { font-size: 1.25rem; margin-bottom: 6px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    /* ---------- Location ---------- */
+    .loc { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 22px; }
+    @media (max-width: 860px) { .loc { grid-template-columns: 1fr; } }
+    .loc-info { padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+    .loc-row { display: flex; gap: 14px; align-items: flex-start; }
+    .loc-row .ico { width: 44px; height: 44px; border-radius: 14px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+    .loc-row .ico svg { width: 22px; height: 22px; }
+    .loc-row small { display: block; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; }
+    .loc-row strong { font-size: 1.05rem; }
+    .loc-row a { text-decoration: none; }
+    .loc-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+    .map { overflow: hidden; min-height: 380px; padding: 0; position: relative; }
+    .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
+
+    /* ---------- Hours ---------- */
+    .hours-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 22px; align-items: stretch; }
+    @media (max-width: 860px) { .hours-grid { grid-template-columns: 1fr; } }
+    .clock-card { padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+    .clock-card svg { width: 170px; height: 170px; }
+    .clock-card h3 { font-size: 1.8rem; }
+    .clock-card p { margin: 0; color: var(--muted); }
+    .hours-list { padding: 12px 28px; }
+    .hours-list table { width: 100%; border-collapse: collapse; }
+    .hours-list td { padding: 14px 4px; border-bottom: 1px solid var(--border); }
+    .hours-list tr:last-child td { border-bottom: 0; }
+    .hours-list td:last-child { text-align: right; font-weight: 700; }
+    .hours-list tr.today td { color: var(--primary); }
+    .hours-list tr.today td:first-child::after { content: "Today"; margin-left: 10px; font-size: .72rem; font-weight: 700; background: var(--primary-soft); color: var(--primary); padding: 2px 8px; border-radius: 999px; vertical-align: 2px; }
+    .note { color: var(--muted); font-size: .9rem; margin-top: 14px; }
+
+    /* ---------- Gallery ---------- */
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 14px; }
+    .gallery figure { margin: 0; position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); }
+    .gallery figure.big { grid-column: span 2; grid-row: span 2; }
+    .gallery figure.wide { grid-column: span 2; }
+    @media (max-width: 760px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .gallery figure.big { grid-column: span 2; grid-row: span 2; }
+    }
+    .gallery .art { position: absolute; inset: 0; display: grid; place-items: center; }
+    .gallery .art svg { width: 70%; height: 70%; }
+    .gallery img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .gallery figcaption {
+      position: absolute; left: 12px; bottom: 12px;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      backdrop-filter: blur(6px);
+      padding: 5px 12px; border-radius: 999px; font-weight: 700; font-size: .85rem;
+    }
+    .g1 .art { background: linear-gradient(135deg, var(--primary-soft), color-mix(in srgb, var(--aqua) 45%, var(--surface))); }
+    .g2 .art { background: linear-gradient(135deg, color-mix(in srgb, var(--sun) 35%, var(--surface)), var(--surface-2)); }
+    .g3 .art { background: linear-gradient(135deg, var(--surface-2), var(--primary-soft)); }
+    .g4 .art { background: linear-gradient(135deg, color-mix(in srgb, var(--aqua) 40%, var(--surface)), var(--surface-2)); }
+    .g5 .art { background: linear-gradient(135deg, var(--primary-soft), color-mix(in srgb, var(--sun) 30%, var(--surface))); }
+
+    /* ---------- Contact ---------- */
+    .contact { padding: 44px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: center;
+      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 60%, var(--aqua)));
+      color: #fff; border: 0; }
+    .contact h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+    .contact p { color: rgba(255,255,255,.88); margin: 10px 0 0; font-size: 1.05rem; }
+    .contact .phone { font-family: "Fredoka", sans-serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; color: #fff; text-decoration: none; display: block; margin-bottom: 14px; }
+    .contact .btn-light { background: #fff; color: #0b6bcb; }
+    .contact .btn-outline { border-color: rgba(255,255,255,.6); color: #fff; }
+    .contact .btn-outline:hover { background: rgba(255,255,255,.12); }
+    .contact-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+    @media (max-width: 760px) { .contact { grid-template-columns: 1fr; padding: 30px 22px; } }
+
+    footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Penny</h1>
-    <p class="tagline">Mechanical Design Engineer · PE · Python &amp; Excel tool builder</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+
+  <!-- Shared icons -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8-8-2z"/></symbol>
+    <symbol id="i-washer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="3"/><circle cx="12" cy="13.5" r="5"/><path d="M7.5 6h.01M10.5 6h3"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 1 1-4 0v-4l2.5-6h17L23 13v4a2 2 0 1 1-4 0M5 17h0M19 17h0"/><circle cx="6" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></symbol>
+    <symbol id="i-basket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18l-2 10H5L3 10zM8 10l4-6 4 6M9 14v3M12 14v3M15 14v3"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9a2.5 2 0 0 0-2.5-1.5c-1.4 0-2.5.8-2.5 2s1.1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2A2.5 2 0 0 1 9.5 15M12 6v1.5M12 16.5V18"/></symbol>
+    <symbol id="i-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+  </svg>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="First Coin Laundry home">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="4" width="52" height="56" rx="12" fill="#0b6bcb"/><circle cx="32" cy="36" r="16" fill="#fff"/><circle cx="32" cy="36" r="10" fill="#7fd4f5"/><circle cx="17" cy="14" r="3" fill="#fff"/><rect x="26" y="12" width="22" height="4" rx="2" fill="#fff" opacity=".6"/></svg>
+        First Coin Laundry
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#location">Location</a>
+        <a href="#hours">Hours</a>
+        <a href="#photos">Photos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>Call</a>
+    </div>
   </header>
 
-  <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        Replace this paragraph with a short intro about yourself — what you do,
-        what you're interested in, and what people will find on this page.
-      </p>
-    </section>
+  <main id="top">
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <span class="bubble" style="width:70px;height:70px;left:46%;top:14%"></span>
+      <span class="bubble" style="width:34px;height:34px;left:8%;top:12%;animation-delay:-3s"></span>
+      <span class="bubble" style="width:48px;height:48px;left:40%;bottom:10%;animation-delay:-6s"></span>
+      <div class="wrap">
+        <div>
+          <span class="status"><span class="dot" id="statusDot"></span><span id="statusText">Open 24 hours</span></span>
+          <h1>Fresh, clean laundry on <span>Memorial Drive.</span></h1>
+          <p class="lead">Your neighborhood self-service laundromat in Stone Mountain. Washers and dryers in a range of sizes, so you can get it all done in one trip.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg>Get directions</a>
+            <a class="btn btn-ghost" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>(404) 330-8260</a>
+          </div>
+          <div class="hero-addr"><svg><use href="#i-pin"/></svg>4877 Memorial Dr, Stone Mountain, GA 30083</div>
+        </div>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Project One</h3>
-          <p>One or two sentences describing what it does and why it's useful.</p>
-        </div>
-        <div class="card">
-          <h3>Project Two</h3>
-          <p>Link to a repo with <a href="https://github.com/">this kind of link</a>.</p>
-        </div>
-        <div class="card">
-          <h3>Project Three</h3>
-          <p>Add or remove cards by copying a whole &lt;div class="card"&gt; block.</p>
+        <!-- Washing machine illustration -->
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 320 380" width="100%">
+            <defs>
+              <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3eef8"/></linearGradient>
+              <linearGradient id="water" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fd4f5"/><stop offset="1" stop-color="#0b6bcb"/></linearGradient>
+              <clipPath id="porthole"><circle cx="160" cy="205" r="78"/></clipPath>
+            </defs>
+            <ellipse cx="160" cy="362" rx="120" ry="12" fill="#0b3c6e" opacity=".12"/>
+            <rect x="30" y="20" width="260" height="330" rx="32" fill="url(#body)" stroke="#c9dceb" stroke-width="3"/>
+            <rect x="30" y="20" width="260" height="70" rx="32" fill="#0b6bcb"/>
+            <rect x="30" y="60" width="260" height="30" fill="#0b6bcb"/>
+            <circle cx="70" cy="55" r="12" fill="#fff" opacity=".9"/>
+            <circle cx="108" cy="55" r="7" fill="#ffc94d"/>
+            <rect x="170" y="44" width="92" height="22" rx="11" fill="#fff" opacity=".25"/>
+            <rect x="180" y="51" width="40" height="8" rx="4" fill="#fff"/>
+            <circle cx="160" cy="205" r="98" fill="#d6e6f3"/>
+            <circle cx="160" cy="205" r="86" fill="#fff" stroke="#b6cde0" stroke-width="4"/>
+            <g clip-path="url(#porthole)">
+              <rect x="70" y="115" width="180" height="180" fill="#eaf6fd"/>
+              <g class="drum">
+                <path d="M60 215 Q 100 190 140 215 T 220 215 T 300 215 V 320 H 60 Z" fill="url(#water)" opacity=".9"/>
+                <rect x="120" y="165" width="44" height="30" rx="8" fill="#ffc94d" transform="rotate(-18 142 180)"/>
+                <rect x="160" y="230" width="50" height="26" rx="8" fill="#ff8fa3" transform="rotate(22 185 243)"/>
+                <circle cx="120" cy="245" r="9" fill="#fff" opacity=".8"/>
+                <circle cx="200" cy="170" r="6" fill="#fff" opacity=".8"/>
+              </g>
+            </g>
+            <path d="M110 150 A 70 70 0 0 1 150 135" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none" opacity=".9"/>
+            <circle cx="262" cy="118" r="16" fill="#7fd4f5" opacity=".5"/>
+            <circle cx="282" cy="96" r="9" fill="#7fd4f5" opacity=".4"/>
+            <circle cx="46" cy="300" r="12" fill="#7fd4f5" opacity=".35"/>
+          </svg>
         </div>
       </div>
     </section>
 
+    <!-- ================= QUICK STATS ================= -->
+    <div class="wrap">
+      <div class="stats">
+        <div class="card stat"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><b id="statHours">Open 24/7</b><span>Wash anytime</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>All sizes</b><span>Regular to big loads</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-car"/></svg></div><div><b>Easy parking</b><span>Right on Memorial Dr</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-sparkle"/></svg></div><div><b>Kept clean</b><span>Bright &amp; comfortable</span></div></div>
+      </div>
+    </div>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">How it works</div>
+          <h2>Laundry day in four easy steps</h2>
+          <p>Bring your clothes and detergent. We supply the machines.</p>
+        </div>
+        <div class="steps">
+          <div class="card step"><div class="ico"><svg><use href="#i-basket"/></svg></div><h3>Load</h3><p>Pick a washer that fits your load, from everyday clothes to comforters.</p></div>
+          <div class="card step"><div class="ico"><svg><use href="#i-coin"/></svg></div><h3>Pay &amp; wash</h3><p>Choose your cycle, start the machine, and relax while it runs.</p></div>
+          <div class="card step"><div class="ico"><svg><use href="#i-wind"/></svg></div><h3>Dry</h3><p>Move everything to a dryer and add time as you need it.</p></div>
+          <div class="card step"><div class="ico"><svg><use href="#i-shirt"/></svg></div><h3>Fold &amp; go</h3><p>Use our folding tables and head home with fresh, clean laundry.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LOCATION ================= -->
+    <section id="location" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Find us</div>
+          <h2>Right on Memorial Drive</h2>
+          <p>In Stone Mountain, DeKalb County. Tap the map for turn-by-turn directions.</p>
+        </div>
+        <div class="loc">
+          <div class="card loc-info">
+            <div class="loc-row"><div class="ico"><svg><use href="#i-pin"/></svg></div><div><small>Address</small><strong>4877 Memorial Dr<br>Stone Mountain, GA 30083</strong></div></div>
+            <div class="loc-row"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><small>Phone</small><strong><a href="tel:+14043308260">(404) 330-8260</a></strong></div></div>
+            <div class="loc-row"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><small>Hours</small><strong id="locHours">Open 24 hours, 7 days</strong></div></div>
+            <div class="loc-actions">
+              <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg>Directions</a>
+              <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Open in Google Maps</a>
+            </div>
+          </div>
+          <div class="card map">
+            <iframe title="Map of First Coin Laundry, 4877 Memorial Dr, Stone Mountain, GA" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=First+Coin+Laundry,+4877+Memorial+Dr,+Stone+Mountain,+GA+30083&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOURS ================= -->
+    <section id="hours">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Hours</div>
+          <h2>Come by when it suits you</h2>
+        </div>
+        <div class="hours-grid">
+          <div class="card clock-card">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="92" fill="var(--primary-soft)"/>
+              <circle cx="100" cy="100" r="74" fill="var(--surface)" stroke="var(--primary)" stroke-width="6"/>
+              <g stroke="var(--muted)" stroke-width="4" stroke-linecap="round">
+                <line x1="100" y1="34" x2="100" y2="44"/><line x1="166" y1="100" x2="156" y2="100"/>
+                <line x1="100" y1="166" x2="100" y2="156"/><line x1="34" y1="100" x2="44" y2="100"/>
+              </g>
+              <line id="hHand" x1="100" y1="100" x2="100" y2="62" stroke="var(--text)" stroke-width="7" stroke-linecap="round"/>
+              <line id="mHand" x1="100" y1="100" x2="100" y2="46" stroke="var(--primary)" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="100" cy="100" r="7" fill="var(--sun)"/>
+            </svg>
+            <h3 id="clockTitle">Open 24 / 7</h3>
+            <p id="clockSub">Every day of the year</p>
+          </div>
+          <div class="card hours-list">
+            <table><tbody id="hoursBody"></tbody></table>
+            <p class="note">Holiday hours may vary. Please call ahead if you're unsure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHOTOS ================= -->
+    <!-- To use real photos, add files named below to an "images" folder. They replace the illustrations automatically. -->
+    <section id="photos" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Photos</div>
+          <h2>Take a look inside</h2>
+        </div>
+        <div class="gallery">
+          <figure class="big g1">
+            <div class="art"><svg viewBox="0 0 200 140" aria-hidden="true"><rect x="10" y="40" width="180" height="90" rx="8" fill="#fff"/><rect x="10" y="30" width="180" height="22" rx="6" fill="#0b6bcb"/><text x="100" y="46" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="13" font-weight="700" fill="#fff">FIRST COIN LAUNDRY</text><rect x="22" y="62" width="70" height="56" rx="4" fill="#7fd4f5" opacity=".6"/><rect x="108" y="62" width="70" height="56" rx="4" fill="#7fd4f5" opacity=".6"/><rect x="88" y="78" width="24" height="52" rx="3" fill="#0b6bcb" opacity=".85"/></svg></div>
+            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy" onerror="this.remove()">
+            <figcaption>Storefront</figcaption>
+          </figure>
+          <figure class="g2">
+            <div class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="20" width="44" height="80" rx="6" fill="#fff"/><circle cx="32" cy="65" r="14" fill="#7fd4f5"/><rect x="66" y="20" width="44" height="80" rx="6" fill="#fff"/><circle cx="88" cy="65" r="14" fill="#7fd4f5"/></svg></div>
+            <img src="images/washers.jpg" alt="Row of washers" loading="lazy" onerror="this.remove()">
+            <figcaption>Washers</figcaption>
+          </figure>
+          <figure class="g3">
+            <div class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="20" y="14" width="80" height="44" rx="6" fill="#fff"/><circle cx="60" cy="36" r="15" fill="#ffc94d" opacity=".8"/><rect x="20" y="64" width="80" height="44" rx="6" fill="#fff"/><circle cx="60" cy="86" r="15" fill="#ffc94d" opacity=".8"/></svg></div>
+            <img src="images/dryers.jpg" alt="Stacked dryers" loading="lazy" onerror="this.remove()">
+            <figcaption>Dryers</figcaption>
+          </figure>
+          <figure class="wide g4">
+            <div class="art"><svg viewBox="0 0 200 100" aria-hidden="true"><rect x="20" y="50" width="160" height="10" rx="4" fill="#fff"/><rect x="30" y="60" width="8" height="30" fill="#fff"/><rect x="162" y="60" width="8" height="30" fill="#fff"/><rect x="50" y="32" width="36" height="18" rx="4" fill="#ff8fa3"/><rect x="92" y="38" width="30" height="12" rx="4" fill="#0b6bcb"/><rect x="128" y="34" width="26" height="16" rx="4" fill="#ffc94d"/></svg></div>
+            <img src="images/interior.jpg" alt="Clean interior with folding tables" loading="lazy" onerror="this.remove()">
+            <figcaption>Folding area</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
     <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+      <div class="wrap">
+        <div class="card contact">
+          <div>
+            <h2>Questions? Give us a call.</h2>
+            <p>Questions about machines, hours, or anything else? We're happy to help.</p>
+          </div>
+          <div>
+            <a class="phone" href="tel:+14043308260">(404) 330-8260</a>
+            <div class="contact-ctas">
+              <a class="btn btn-light" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>Call now</a>
+              <a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&destination=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg>Directions</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    &copy; 2026 Penny · Hosted on GitHub Pages
+    <div class="wrap">
+      <span>&copy; <span id="year">2026</span> First Coin Laundry · 4877 Memorial Dr, Stone Mountain, GA 30083</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
   </footer>
+
+  <script>
+    // ---- Edit hours here. Use 24-hour "HH:MM" times, or null for closed. ----
+    // open: "00:00", close: "24:00" means open all day.
+    const HOURS = {
+      Sunday:    { open: "00:00", close: "24:00" },
+      Monday:    { open: "00:00", close: "24:00" },
+      Tuesday:   { open: "00:00", close: "24:00" },
+      Wednesday: { open: "00:00", close: "24:00" },
+      Thursday:  { open: "00:00", close: "24:00" },
+      Friday:    { open: "00:00", close: "24:00" },
+      Saturday:  { open: "00:00", close: "24:00" }
+    };
+    const TIME_ZONE = "America/New_York";
+
+    const days = Object.keys(HOURS);
+    const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+    const fmt = t => {
+      const m = toMin(t) % 1440, h = Math.floor(m / 60), mm = m % 60;
+      return `${h % 12 || 12}${mm ? ":" + String(mm).padStart(2, "0") : ""} ${h < 12 ? "AM" : "PM"}`;
+    };
+    const isAllDay = d => d && d.open === "00:00" && d.close === "24:00";
+    const label = d => !d ? "Closed" : isAllDay(d) ? "Open 24 hours" : `${fmt(d.open)} – ${fmt(d.close)}`;
+
+    // Current time in the store's time zone
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone: TIME_ZONE, weekday: "long", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(new Date()).reduce((o, p) => (o[p.type] = p.value, o), {});
+    const today = parts.weekday, nowMin = Number(parts.hour) * 60 + Number(parts.minute);
+
+    // Hours table, starting with Monday
+    const order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    document.getElementById("hoursBody").innerHTML = order.map(d =>
+      `<tr class="${d === today ? "today" : ""}"><td>${d}</td><td>${label(HOURS[d])}</td></tr>`).join("");
+
+    // Open/closed status
+    const allOpen = days.every(d => isAllDay(HOURS[d]));
+    const h = HOURS[today];
+    const openNow = h && nowMin >= toMin(h.open) && nowMin < toMin(h.close);
+    const dot = document.getElementById("statusDot"), txt = document.getElementById("statusText");
+    if (allOpen) {
+      txt.textContent = "Open now · 24 hours";
+    } else {
+      dot.classList.toggle("closed", !openNow);
+      txt.textContent = openNow ? `Open now · until ${fmt(h.close)}` : "Closed now";
+      document.getElementById("statHours").textContent = "Open daily";
+      document.getElementById("locHours").textContent = h ? `Today: ${label(h)}` : "Closed today";
+      document.getElementById("clockTitle").textContent = openNow ? "Open now" : "Closed now";
+      document.getElementById("clockSub").textContent = h ? `Today: ${label(h)}` : "Closed today";
+    }
+
+    // Clock hands show the store's local time
+    const hr = Number(parts.hour) % 12, mn = Number(parts.minute);
+    document.getElementById("hHand").setAttribute("transform", `rotate(${hr * 30 + mn * 0.5} 100 100)`);
+    document.getElementById("mHand").setAttribute("transform", `rotate(${mn * 6} 100 100)`);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
