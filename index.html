@@ -8,7 +8,7 @@
   <meta property="og:title" content="First Coin Laundry · Stone Mountain, GA">
   <meta property="og:description" content="Self-service laundromat on Memorial Drive in Stone Mountain, GA.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='4' width='52' height='56' rx='10' fill='%230b6bcb'/%3E%3Ccircle cx='32' cy='36' r='16' fill='%23fff'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%237fd4f5'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='4' width='52' height='56' rx='10' fill='%231f4fd1'/%3E%3Ccircle cx='32' cy='36' r='16' fill='%23fff'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%237ad31f'/%3E%3Ccircle cx='16' cy='13' r='3' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -40,33 +40,36 @@
 
   <style>
     :root {
-      --bg: #f4f9fd;
+      /* Store colors: royal-blue trim and lime-green walls */
+      --bg: #f5f8fc;
       --surface: #ffffff;
-      --surface-2: #e8f3fb;
-      --text: #0f2236;
-      --muted: #4f6478;
-      --primary: #0b6bcb;
+      --surface-2: #eef3fb;
+      --text: #0e1a33;
+      --muted: #4d5b75;
+      --primary: #1f4fd1;
       --primary-ink: #ffffff;
-      --primary-soft: #d6eafb;
-      --aqua: #7fd4f5;
+      --primary-soft: #dfe7fb;
+      --aqua: #7ad31f;
+      --lime-ink: #2f6b00;
       --sun: #ffc94d;
-      --border: #d7e4ef;
-      --shadow: 0 10px 30px rgba(11, 60, 110, 0.10);
+      --border: #d9e1ee;
+      --shadow: 0 10px 30px rgba(20, 45, 120, 0.10);
       --radius: 20px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0b1622;
-        --surface: #12212f;
-        --surface-2: #172b3d;
-        --text: #e8f1f8;
-        --muted: #9db2c4;
-        --primary: #4ea8f2;
-        --primary-ink: #06121d;
-        --primary-soft: #183650;
-        --aqua: #5cc3e8;
+        --bg: #0a1020;
+        --surface: #121a2e;
+        --surface-2: #17213a;
+        --text: #e9eefa;
+        --muted: #a1adc6;
+        --primary: #6d8dff;
+        --primary-ink: #08102a;
+        --primary-soft: #1d2a52;
+        --aqua: #8fe33a;
+        --lime-ink: #a6ee5c;
         --sun: #ffcf66;
-        --border: #23394d;
+        --border: #26314d;
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       }
     }
@@ -125,7 +128,7 @@
       pointer-events: none;
     }
     .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
-    @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero-art { max-width: 340px; margin: 0 auto; } }
+    @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero-photo { max-width: 520px; margin: 0 auto; } }
     .status {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--surface); border: 1px solid var(--border);
@@ -144,8 +147,36 @@
     .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), color-mix(in srgb, var(--aqua) 40%, transparent) 60%); opacity: .55; animation: float 9s ease-in-out infinite; }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .drum { transform-origin: 160px 205px; animation: spin 6s linear infinite; }
-    @media (prefers-reduced-motion: reduce) { .bubble, .drum { animation: none; } html { scroll-behavior: auto; } }
+    @media (prefers-reduced-motion: reduce) { .bubble { animation: none; } html { scroll-behavior: auto; } }
+    .hero-photo { position: relative; }
+    .hero-photo img {
+      width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+      border-radius: 28px; border: 6px solid var(--surface);
+      box-shadow: 0 0 0 4px var(--aqua), var(--shadow);
+      transform: rotate(1.5deg);
+    }
+    .hero-badge {
+      position: absolute; left: -14px; bottom: -18px;
+      background: var(--surface); border-radius: 18px; box-shadow: var(--shadow);
+      padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+      border: 1px solid var(--border);
+    }
+    .hero-badge .ico { width: 40px; height: 40px; border-radius: 12px; background: var(--aqua); color: #0e1a33; display: grid; place-items: center; }
+    .hero-badge .ico svg { width: 22px; height: 22px; }
+    .hero-badge b { display: block; font-family: "Fredoka", sans-serif; font-weight: 600; }
+    .hero-badge span { color: var(--muted); font-size: .85rem; }
+    @media (max-width: 480px) { .hero-badge { left: 8px; } }
+
+    /* ---------- Free dry policy ---------- */
+    .dry { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    @media (max-width: 860px) { .dry { grid-template-columns: repeat(2, 1fr); } }
+    .dry .card { padding: 22px 18px; text-align: center; }
+    .dry .load { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; }
+    .dry .dryers { display: flex; justify-content: center; gap: 6px; margin: 14px 0 10px; }
+    .dry .dryers span { width: 34px; height: 34px; border-radius: 50%; border: 4px solid var(--primary); background: color-mix(in srgb, var(--aqua) 55%, var(--surface)); }
+    .dry .count { color: var(--muted); font-weight: 700; }
+    .rules { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .rules span { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: .9rem; color: var(--muted); font-weight: 500; }
 
     /* ---------- Sections ---------- */
     section { padding: 72px 0; }
@@ -222,8 +253,6 @@
       .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
       .gallery figure.big { grid-column: span 2; grid-row: span 2; }
     }
-    .gallery .art { position: absolute; inset: 0; display: grid; place-items: center; }
-    .gallery .art svg { width: 70%; height: 70%; }
     .gallery img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .gallery figcaption {
       position: absolute; left: 12px; bottom: 12px;
@@ -231,20 +260,17 @@
       backdrop-filter: blur(6px);
       padding: 5px 12px; border-radius: 999px; font-weight: 700; font-size: .85rem;
     }
-    .g1 .art { background: linear-gradient(135deg, var(--primary-soft), color-mix(in srgb, var(--aqua) 45%, var(--surface))); }
-    .g2 .art { background: linear-gradient(135deg, color-mix(in srgb, var(--sun) 35%, var(--surface)), var(--surface-2)); }
-    .g3 .art { background: linear-gradient(135deg, var(--surface-2), var(--primary-soft)); }
-    .g4 .art { background: linear-gradient(135deg, color-mix(in srgb, var(--aqua) 40%, var(--surface)), var(--surface-2)); }
-    .g5 .art { background: linear-gradient(135deg, var(--primary-soft), color-mix(in srgb, var(--sun) 30%, var(--surface))); }
+    .gallery img { transition: transform .4s ease; }
+    .gallery figure:hover img { transform: scale(1.04); }
 
     /* ---------- Contact ---------- */
     .contact { padding: 44px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: center;
-      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 60%, var(--aqua)));
+      background: linear-gradient(135deg, #1f4fd1, #1a3fa8 60%, #2c6a10);
       color: #fff; border: 0; }
     .contact h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
     .contact p { color: rgba(255,255,255,.88); margin: 10px 0 0; font-size: 1.05rem; }
     .contact .phone { font-family: "Fredoka", sans-serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; color: #fff; text-decoration: none; display: block; margin-bottom: 14px; }
-    .contact .btn-light { background: #fff; color: #0b6bcb; }
+    .contact .btn-light { background: #7ad31f; color: #0e1a33; }
     .contact .btn-outline { border-color: rgba(255,255,255,.6); color: #fff; }
     .contact .btn-outline:hover { background: rgba(255,255,255,.12); }
     .contact-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -274,11 +300,12 @@
   <header class="nav">
     <div class="wrap">
       <a class="brand" href="#top" aria-label="First Coin Laundry home">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="4" width="52" height="56" rx="12" fill="#0b6bcb"/><circle cx="32" cy="36" r="16" fill="#fff"/><circle cx="32" cy="36" r="10" fill="#7fd4f5"/><circle cx="17" cy="14" r="3" fill="#fff"/><rect x="26" y="12" width="22" height="4" rx="2" fill="#fff" opacity=".6"/></svg>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="4" width="52" height="56" rx="12" fill="#1f4fd1"/><circle cx="32" cy="36" r="16" fill="#fff"/><circle cx="32" cy="36" r="10" fill="#7ad31f"/><circle cx="17" cy="14" r="3" fill="#fff"/><rect x="26" y="12" width="22" height="4" rx="2" fill="#fff" opacity=".6"/></svg>
         First Coin Laundry
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#how">How it works</a>
+        <a href="#free-dry">Free dry</a>
         <a href="#location">Location</a>
         <a href="#hours">Hours</a>
         <a href="#photos">Photos</a>
@@ -306,39 +333,9 @@
           <div class="hero-addr"><svg><use href="#i-pin"/></svg>4877 Memorial Dr, Stone Mountain, GA 30083</div>
         </div>
 
-        <!-- Washing machine illustration -->
-        <div class="hero-art" aria-hidden="true">
-          <svg viewBox="0 0 320 380" width="100%">
-            <defs>
-              <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3eef8"/></linearGradient>
-              <linearGradient id="water" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fd4f5"/><stop offset="1" stop-color="#0b6bcb"/></linearGradient>
-              <clipPath id="porthole"><circle cx="160" cy="205" r="78"/></clipPath>
-            </defs>
-            <ellipse cx="160" cy="362" rx="120" ry="12" fill="#0b3c6e" opacity=".12"/>
-            <rect x="30" y="20" width="260" height="330" rx="32" fill="url(#body)" stroke="#c9dceb" stroke-width="3"/>
-            <rect x="30" y="20" width="260" height="70" rx="32" fill="#0b6bcb"/>
-            <rect x="30" y="60" width="260" height="30" fill="#0b6bcb"/>
-            <circle cx="70" cy="55" r="12" fill="#fff" opacity=".9"/>
-            <circle cx="108" cy="55" r="7" fill="#ffc94d"/>
-            <rect x="170" y="44" width="92" height="22" rx="11" fill="#fff" opacity=".25"/>
-            <rect x="180" y="51" width="40" height="8" rx="4" fill="#fff"/>
-            <circle cx="160" cy="205" r="98" fill="#d6e6f3"/>
-            <circle cx="160" cy="205" r="86" fill="#fff" stroke="#b6cde0" stroke-width="4"/>
-            <g clip-path="url(#porthole)">
-              <rect x="70" y="115" width="180" height="180" fill="#eaf6fd"/>
-              <g class="drum">
-                <path d="M60 215 Q 100 190 140 215 T 220 215 T 300 215 V 320 H 60 Z" fill="url(#water)" opacity=".9"/>
-                <rect x="120" y="165" width="44" height="30" rx="8" fill="#ffc94d" transform="rotate(-18 142 180)"/>
-                <rect x="160" y="230" width="50" height="26" rx="8" fill="#ff8fa3" transform="rotate(22 185 243)"/>
-                <circle cx="120" cy="245" r="9" fill="#fff" opacity=".8"/>
-                <circle cx="200" cy="170" r="6" fill="#fff" opacity=".8"/>
-              </g>
-            </g>
-            <path d="M110 150 A 70 70 0 0 1 150 135" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none" opacity=".9"/>
-            <circle cx="262" cy="118" r="16" fill="#7fd4f5" opacity=".5"/>
-            <circle cx="282" cy="96" r="9" fill="#7fd4f5" opacity=".4"/>
-            <circle cx="46" cy="300" r="12" fill="#7fd4f5" opacity=".35"/>
-          </svg>
+        <div class="hero-photo">
+          <img src="images/washers.jpg" alt="Inside First Coin Laundry: rows of Dexter washers and dryers, folding tables, and lime-green walls">
+          <div class="hero-badge"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>with your wash</span></div></div>
         </div>
       </div>
     </section>
@@ -347,9 +344,9 @@
     <div class="wrap">
       <div class="stats">
         <div class="card stat"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><b id="statHours">Open 24/7</b><span>Wash anytime</span></div></div>
-        <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>All sizes</b><span>Regular to big loads</span></div></div>
-        <div class="card stat"><div class="ico"><svg><use href="#i-car"/></svg></div><div><b>Easy parking</b><span>Right on Memorial Dr</span></div></div>
-        <div class="card stat"><div class="ico"><svg><use href="#i-sparkle"/></svg></div><div><b>Kept clean</b><span>Bright &amp; comfortable</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>Giant Load</b><span>Washers for big loads</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>See our dry policy</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-shirt"/></svg></div><div><b>Folding tables</b><span>Lots of room to fold</span></div></div>
       </div>
     </div>
 
@@ -364,14 +361,37 @@
         <div class="steps">
           <div class="card step"><div class="ico"><svg><use href="#i-basket"/></svg></div><h3>Load</h3><p>Pick a washer that fits your load, from everyday clothes to comforters.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-coin"/></svg></div><h3>Pay &amp; wash</h3><p>Choose your cycle, start the machine, and relax while it runs.</p></div>
-          <div class="card step"><div class="ico"><svg><use href="#i-wind"/></svg></div><h3>Dry</h3><p>Move everything to a dryer and add time as you need it.</p></div>
+          <div class="card step"><div class="ico"><svg><use href="#i-wind"/></svg></div><h3>Dry</h3><p>Move everything to a dryer. Drying is free with your wash.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-shirt"/></svg></div><h3>Fold &amp; go</h3><p>Use our folding tables and head home with fresh, clean laundry.</p></div>
         </div>
       </div>
     </section>
 
+    <!-- ================= FREE DRY POLICY ================= -->
+    <section id="free-dry" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Free dry policy</div>
+          <h2>Wash here, dry for free</h2>
+          <p>Each washer size includes free dryer use. Here's how many dryers you get per load.</p>
+        </div>
+        <div class="dry">
+          <div class="card"><div class="load">Double Load</div><div class="dryers"><span></span></div><div class="count">1 dryer</div></div>
+          <div class="card"><div class="load">Triple Load</div><div class="dryers"><span></span></div><div class="count">1 dryer</div></div>
+          <div class="card"><div class="load">Max Load</div><div class="dryers"><span></span><span></span></div><div class="count">2 dryers</div></div>
+          <div class="card"><div class="load">Mega Load</div><div class="dryers"><span></span><span></span></div><div class="count">Up to 2 dryers</div></div>
+          <div class="card"><div class="load">Ultra Load</div><div class="dryers"><span></span><span></span><span></span></div><div class="count">3 dryers</div></div>
+        </div>
+        <div class="rules">
+          <span>Extra dryers or excessive drying are charged</span>
+          <span>Dry-only is not allowed</span>
+          <span>Rugs are not allowed in dryers</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= LOCATION ================= -->
-    <section id="location" class="alt">
+    <section id="location">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Find us</div>
@@ -397,7 +417,7 @@
     </section>
 
     <!-- ================= HOURS ================= -->
-    <section id="hours">
+    <section id="hours" class="alt">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Hours</div>
@@ -428,33 +448,24 @@
     </section>
 
     <!-- ================= PHOTOS ================= -->
-    <!-- To use real photos, add files named below to an "images" folder. They replace the illustrations automatically. -->
-    <section id="photos" class="alt">
+    <section id="photos">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Photos</div>
           <h2>Take a look inside</h2>
         </div>
         <div class="gallery">
-          <figure class="big g1">
-            <div class="art"><svg viewBox="0 0 200 140" aria-hidden="true"><rect x="10" y="40" width="180" height="90" rx="8" fill="#fff"/><rect x="10" y="30" width="180" height="22" rx="6" fill="#0b6bcb"/><text x="100" y="46" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="13" font-weight="700" fill="#fff">FIRST COIN LAUNDRY</text><rect x="22" y="62" width="70" height="56" rx="4" fill="#7fd4f5" opacity=".6"/><rect x="108" y="62" width="70" height="56" rx="4" fill="#7fd4f5" opacity=".6"/><rect x="88" y="78" width="24" height="52" rx="3" fill="#0b6bcb" opacity=".85"/></svg></div>
-            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy" onerror="this.remove()">
-            <figcaption>Storefront</figcaption>
+          <figure class="big">
+            <img src="images/washers.jpg" alt="Rows of washers and folding tables" loading="lazy">
+            <figcaption>Washers &amp; folding tables</figcaption>
           </figure>
-          <figure class="g2">
-            <div class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="20" width="44" height="80" rx="6" fill="#fff"/><circle cx="32" cy="65" r="14" fill="#7fd4f5"/><rect x="66" y="20" width="44" height="80" rx="6" fill="#fff"/><circle cx="88" cy="65" r="14" fill="#7fd4f5"/></svg></div>
-            <img src="images/washers.jpg" alt="Row of washers" loading="lazy" onerror="this.remove()">
-            <figcaption>Washers</figcaption>
-          </figure>
-          <figure class="g3">
-            <div class="art"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="20" y="14" width="80" height="44" rx="6" fill="#fff"/><circle cx="60" cy="36" r="15" fill="#ffc94d" opacity=".8"/><rect x="20" y="64" width="80" height="44" rx="6" fill="#fff"/><circle cx="60" cy="86" r="15" fill="#ffc94d" opacity=".8"/></svg></div>
-            <img src="images/dryers.jpg" alt="Stacked dryers" loading="lazy" onerror="this.remove()">
+          <figure class="wide">
+            <img src="images/dryers.jpg" alt="Wall of stacked Dexter dryers" loading="lazy">
             <figcaption>Dryers</figcaption>
           </figure>
-          <figure class="wide g4">
-            <div class="art"><svg viewBox="0 0 200 100" aria-hidden="true"><rect x="20" y="50" width="160" height="10" rx="4" fill="#fff"/><rect x="30" y="60" width="8" height="30" fill="#fff"/><rect x="162" y="60" width="8" height="30" fill="#fff"/><rect x="50" y="32" width="36" height="18" rx="4" fill="#ff8fa3"/><rect x="92" y="38" width="30" height="12" rx="4" fill="#0b6bcb"/><rect x="128" y="34" width="26" height="16" rx="4" fill="#ffc94d"/></svg></div>
-            <img src="images/interior.jpg" alt="Clean interior with folding tables" loading="lazy" onerror="this.remove()">
-            <figcaption>Folding area</figcaption>
+          <figure class="wide">
+            <img src="images/interior.jpg" alt="Open interior with pool table and entrance" loading="lazy">
+            <figcaption>Pool table &amp; entrance</figcaption>
           </figure>
         </div>
       </div>
