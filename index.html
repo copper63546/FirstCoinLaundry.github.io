@@ -206,6 +206,31 @@
     .step h3 { font-size: 1.25rem; margin-bottom: 6px; }
     .step p { margin: 0; color: var(--muted); }
 
+    /* ---------- Machines ---------- */
+    .machines { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 1000px) { .machines { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 620px) { .machines { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .machine { padding: 18px 16px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .machine .pic { height: 150px; display: grid; place-items: end center; background: radial-gradient(closest-side at 50% 100%, var(--primary-soft), transparent); border-radius: 14px; }
+    .machine .pic img { max-height: 140px; width: auto; filter: drop-shadow(0 8px 10px rgba(14, 26, 51, .18)); }
+    .size { font-size: 1.9rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+    .size small { font-size: .95rem; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-left: 2px; }
+    .machine h3 { font-size: 1.05rem; }
+    .model { color: var(--muted); font-size: .82rem; }
+    .meter { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+    .meter span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--primary), var(--aqua)); }
+    .machine p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .sub-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 40px 0 16px; }
+    .sub-head h3 { font-size: 1.4rem; }
+    .sub-head p { margin: 0; color: var(--muted); }
+    .dryers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 620px) { .dryers { grid-template-columns: minmax(0, 1fr); } }
+    .dryer { padding: 18px 20px; display: flex; align-items: center; gap: 20px; }
+    .dryer img { height: 150px; width: auto; flex: none; filter: drop-shadow(0 8px 10px rgba(14, 26, 51, .18)); }
+    .dryer > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .dryer p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .credit { color: var(--muted); font-size: .8rem; margin-top: 18px; }
+
     /* ---------- Location ---------- */
     .loc { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 22px; }
     @media (max-width: 860px) { .loc { grid-template-columns: 1fr; } }
@@ -299,6 +324,7 @@
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#how">How it works</a>
+        <a href="#machines">Machines</a>
         <a href="#location">Location</a>
         <a href="#hours">Hours</a>
         <a href="#photos">Photos</a>
@@ -337,7 +363,7 @@
     <div class="wrap">
       <div class="stats">
         <div class="card stat"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><b id="statHours">Open 24/7</b><span>Wash anytime</span></div></div>
-        <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>Giant Load</b><span>Washers for big loads</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>Up to 90 lb</b><span>Washers for big loads</span></div></div>
         <div class="card stat"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>With your wash</span></div></div>
         <div class="card stat"><div class="ico"><svg><use href="#i-shirt"/></svg></div><div><b>Folding tables</b><span>Lots of room to fold</span></div></div>
       </div>
@@ -361,8 +387,84 @@
     </section>
 
 
+    <!-- ================= MACHINES ================= -->
+    <section id="machines" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Our machines</div>
+          <h2>A washer for every size load</h2>
+          <p>Commercial Dexter Express washers from 20 to 90 lb. Their high-speed spin pulls out more water, so your clothes come out ready for a faster dry.</p>
+        </div>
+        <div class="machines">
+          <div class="card machine">
+            <div class="pic"><img src="images/machines/t-350.png" alt="Dexter T-350 Express washer" loading="lazy" width="96" height="140"></div>
+            <div class="size">20<small>lb</small></div>
+            <div class="meter" aria-hidden="true"><span style="width:22%"></span></div>
+            <h3>2-Load Washer</h3>
+            <div class="model">Dexter T-350 Express</div>
+            <p>Everyday clothes and small loads.</p>
+          </div>
+          <div class="card machine">
+            <div class="pic"><img src="images/machines/t-450.png" alt="Dexter T-450 Express washer" loading="lazy" width="96" height="140"></div>
+            <div class="size">30<small>lb</small></div>
+            <div class="meter" aria-hidden="true"><span style="width:33%"></span></div>
+            <h3>3-Load Washer</h3>
+            <div class="model">Dexter T-450 Express</div>
+            <p>A full week of family laundry or a stack of towels.</p>
+          </div>
+          <div class="card machine">
+            <div class="pic"><img src="images/machines/t-750.png" alt="Dexter T-750 Express washer" loading="lazy" width="96" height="140"></div>
+            <div class="size">50<small>lb</small></div>
+            <div class="meter" aria-hidden="true"><span style="width:56%"></span></div>
+            <h3>5-Load Washer</h3>
+            <div class="model">Dexter T-750 Express</div>
+            <p>Sheets, blankets, and big family loads.</p>
+          </div>
+          <div class="card machine">
+            <div class="pic"><img src="images/machines/t-950.png" alt="Dexter T-950 Express washer" loading="lazy" width="96" height="140"></div>
+            <div class="size">60<small>lb</small></div>
+            <div class="meter" aria-hidden="true"><span style="width:67%"></span></div>
+            <h3>6-Load Washer</h3>
+            <div class="model">Dexter T-950 Express</div>
+            <p>Comforters and bulky bedding.</p>
+          </div>
+          <div class="card machine">
+            <div class="pic"><img src="images/machines/t-1450.png" alt="Dexter T-1450 Express washer" loading="lazy" width="96" height="140"></div>
+            <div class="size">90<small>lb</small></div>
+            <div class="meter" aria-hidden="true"><span style="width:100%"></span></div>
+            <h3>9-Load Washer</h3>
+            <div class="model">Dexter T-1450 Express</div>
+            <p>Our biggest. King comforters, sleeping bags, and huge loads.</p>
+          </div>
+        </div>
+
+        <div class="sub-head"><h3>Dryers</h3><p>Stacked Dexter dryers in two sizes.</p></div>
+        <div class="dryers">
+          <div class="card dryer">
+            <img src="images/machines/stack-dryer.png" alt="Dexter stacked dryer" loading="lazy" width="77" height="150">
+            <div>
+              <div class="size">30<small>lb per dryer</small></div>
+              <h3>Stack Dryer</h3>
+              <div class="model">Dexter T-30X2</div>
+              <p>Two dryers stacked in one unit. Right for most regular loads.</p>
+            </div>
+          </div>
+          <div class="card dryer">
+            <img src="images/machines/stack-dryer.png" alt="Dexter stacked dryer" loading="lazy" width="77" height="150">
+            <div>
+              <div class="size">50<small>lb per dryer</small></div>
+              <h3>Large Stack Dryer</h3>
+              <div class="model">Dexter T-50X2</div>
+              <p>Extra room for bedding, towels, and loads from our big washers.</p>
+            </div>
+          </div>
+        </div>
+        <p class="credit">Machine photos are Dexter product images. Machines in the store may look slightly different.</p>
+      </div>
+    </section>
+
     <!-- ================= LOCATION ================= -->
-    <section id="location" class="alt">
+    <section id="location">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Find us</div>
@@ -388,7 +490,7 @@
     </section>
 
     <!-- ================= HOURS ================= -->
-    <section id="hours">
+    <section id="hours" class="alt">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Hours</div>
@@ -419,7 +521,7 @@
     </section>
 
     <!-- ================= PHOTOS ================= -->
-    <section id="photos" class="alt">
+    <section id="photos">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Photos</div>
