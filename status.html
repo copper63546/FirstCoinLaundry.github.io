@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check My Order · First Coin Laundry</title>
+  <meta name="description" content="Check if your wash & fold order at First Coin Laundry is ready for pickup. Enter the W&F number from your ticket.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="legal.css">
+  <style>
+    .lookup { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 8px; }
+    .lookup label { flex: 1 1 100%; font-weight: 700; }
+    .field { flex: 1 1 220px; display: flex; align-items: center; background: var(--surface); border: 2px solid var(--border); border-radius: 14px; padding: 0 14px; }
+    .field:focus-within { border-color: var(--primary); }
+    .field span { font-weight: 800; color: var(--muted); font-size: 1.3rem; }
+    .field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text); font: inherit; font-size: 1.5rem; font-weight: 700; padding: 12px 8px; text-transform: uppercase; letter-spacing: .04em; }
+    .go { font: inherit; font-weight: 700; font-size: 1.05rem; border: 0; border-radius: 14px; padding: 0 26px; min-height: 56px; background: var(--primary); color: #fff; cursor: pointer; }
+    .go:focus-visible, .field input:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+    .hint { color: var(--muted); font-size: .92rem; margin: 0; }
+
+    .result { margin-top: 22px; border-radius: 18px; padding: 22px; border: 2px solid var(--border); background: var(--surface); display: flex; gap: 18px; align-items: center; }
+    .result[hidden] { display: none; }
+    .badge { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; flex: none; font-size: 1.9rem; font-weight: 800; color: #fff; }
+    .result h2 { margin: 0 0 4px; font-size: 1.5rem; }
+    .result p { margin: 0; color: var(--muted); }
+    .result.ready { border-color: #22a55b; background: color-mix(in srgb, #22a55b 9%, var(--surface)); }
+    .result.ready .badge { background: #22a55b; }
+    .result.processing { border-color: #f0a020; background: color-mix(in srgb, #f0a020 10%, var(--surface)); }
+    .result.processing .badge { background: #f0a020; }
+    .result.picked_up .badge, .result.missing .badge { background: var(--muted); }
+    .result.error .badge { background: #d93a3f; }
+
+    .stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .stages li { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; text-align: center; font-size: .9rem; color: var(--muted); }
+    .stages b { display: block; color: var(--text); font-size: 1rem; }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+    @media (max-width: 520px) { .stages { grid-template-columns: minmax(0, 1fr); } .result { flex-direction: column; align-items: flex-start; } }
+    .updated-note { color: var(--muted); font-size: .85rem; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="index.html"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#14309a"/><circle cx="32" cy="32" r="26" fill="none" stroke="#7ad31f" stroke-width="4"/><circle cx="32" cy="32" r="18" fill="#3a7cf0"/><path d="M22 26 q6 -6 12 -2 q4 4 0 8 q-6 2 -12 -6z M34 36 q6 -2 8 4 q-2 6 -8 4z" fill="#7ad31f"/></svg>First Coin Laundry</a>
+      <a class="back" href="index.html">&larr; Back to home</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="eyebrow">Wash &amp; fold</div>
+      <h1>Check my order</h1>
+      <p class="updated">Type the W&amp;F number from your ticket to see if your order is ready.</p>
+
+      <form class="lookup" id="lookupForm" autocomplete="off">
+        <label for="wfNumber">W&amp;F number</label>
+        <div class="field"><span aria-hidden="true">W&amp;F#</span><input id="wfNumber" name="wf" inputmode="text" placeholder="12" maxlength="10" aria-describedby="wfHint"></div>
+        <button class="go" type="submit">Check</button>
+        <p class="hint" id="wfHint">It's printed on your drop-off ticket and in your text, for example W&amp;F#12 or W&amp;F#A3.</p>
+      </form>
+
+      <div class="result" id="result" role="status" aria-live="polite" hidden>
+        <div class="badge" id="badge" aria-hidden="true"></div>
+        <div><h2 id="resTitle"></h2><p id="resText"></p></div>
+      </div>
+      <p class="updated-note" id="updatedNote"></p>
+
+      <ul class="stages" aria-label="What each status means">
+        <li><span class="dot" style="background:#f0a020"></span><b>Processing</b>We're washing, drying or folding it.</li>
+        <li><span class="dot" style="background:#22a55b"></span><b>Ready for pickup</b>Come get it any time. We're open 24/7.</li>
+        <li><span class="dot" style="background:var(--muted)"></span><b>Picked up</b>The order has already been collected.</li>
+      </ul>
+
+      <h2>Questions?</h2>
+      <p>Call us at <a href="tel:+14043308260">(404) 330-8260</a> or stop by 4877 Memorial Dr, Stone Mountain, GA 30083. Want a text when your order is ready? <a href="sms.html">See how text updates work</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>First Coin Laundry · 4877 Memorial Dr, Stone Mountain, GA 30083 · (404) 330-8260</span>
+      <nav aria-label="Legal"><a href="status.html">Check my order</a><a href="sms.html">SMS updates</a><a href="sms-terms.html">SMS Terms</a><a href="privacy.html">Privacy Policy</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    // The store's POS uploads wf-status.json to the "wf-status" branch of this site's repo.
+    // Read it through the GitHub API first (always fresh), then the raw file as a backup.
+    const REPO = "copper63546/FirstCoinLaundry.github.io";
+    const SOURCES = [
+      () => fetch(`https://api.github.com/repos/${REPO}/contents/wf-status.json?ref=wf-status`,
+                  { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-store" }),
+      () => fetch(`https://raw.githubusercontent.com/${REPO}/wf-status/wf-status.json?t=${Date.now()}`, { cache: "no-store" })
+    ];
+    const els = {
+      form: document.getElementById("lookupForm"), input: document.getElementById("wfNumber"),
+      box: document.getElementById("result"), badge: document.getElementById("badge"),
+      title: document.getElementById("resTitle"), text: document.getElementById("resText"),
+      note: document.getElementById("updatedNote")
+    };
+
+    async function loadStatus() {
+      for (const get of SOURCES) {
+        try {
+          const r = await get();
+          if (r.ok) return await r.json();
+        } catch (e) { /* try the next source */ }
+      }
+      throw new Error("unavailable");
+    }
+
+    // Same rules as the POS: "W&F#12", "wf 12", "#12", "12" -> "12";  "a3" -> "A3"
+    function normalize(text) {
+      return text.toUpperCase().replace(/W\s*&\s*F|WF|W-|#|\s/g, "").replace(/^([A-Z]*)0+(\d)/, "$1$2");
+    }
+
+    function fmtDay(iso) {
+      if (!iso) return "";
+      const d = new Date(iso.length <= 10 ? iso + "T12:00:00" : iso);
+      return isNaN(d) ? "" : d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    }
+    function fmtTime(iso) {
+      const d = new Date(iso);
+      return isNaN(d) ? "" : d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+    }
+
+    function show(kind, badge, title, text) {
+      els.box.className = "result " + kind;
+      els.badge.textContent = badge;
+      els.title.textContent = title;
+      els.text.textContent = text;
+      els.box.hidden = false;
+    }
+
+    async function check(raw) {
+      const num = normalize(raw);
+      if (!num) { els.input.focus(); return; }
+      els.input.value = num;
+      show("missing", "…", `Checking W&F#${num}…`, "");
+      let data;
+      try {
+        data = await loadStatus();
+      } catch (e) {
+        show("error", "!", "Order lookup isn't available right now",
+             "Please try again in a few minutes, or call us at (404) 330-8260.");
+        return;
+      }
+      const o = (data.orders || {})[num];
+      els.note.textContent = data.updated ? "Store system last updated " + fmtTime(data.updated) + "." : "";
+      if (!o) {
+        show("missing", "?", `We couldn't find W&F#${num}`,
+             "Check the number on your ticket. Orders picked up more than a week ago aren't listed. Still stuck? Call (404) 330-8260.");
+      } else if (o.stage === "ready") {
+        show("ready", "✓", `W&F#${num} is ready for pickup!`,
+             `Dropped off ${fmtDay(o.dropped)}. Come get it any time at 4877 Memorial Dr. We're open 24/7.`);
+      } else if (o.stage === "picked_up") {
+        show("picked_up", "✓", `W&F#${num} was picked up`,
+             `Dropped off ${fmtDay(o.dropped)}, picked up ${fmtTime(o.changed)}. Not you? Call (404) 330-8260.`);
+      } else {
+        show("processing", "…", `W&F#${num} is being processed`,
+             `Dropped off ${fmtDay(o.dropped)}. We're washing, drying or folding it. Check back soon.`);
+      }
+    }
+
+    els.form.addEventListener("submit", e => { e.preventDefault(); check(els.input.value); });
+    // A link like status.html?wf=12 checks that order right away
+    const pre = new URLSearchParams(location.search).get("wf");
+    if (pre) { els.input.value = pre; check(pre); }
+  </script>
+</body>
+</html>
