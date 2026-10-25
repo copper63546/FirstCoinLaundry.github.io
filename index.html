@@ -229,6 +229,28 @@
     .dryer p { margin: 0; color: var(--muted); font-size: .92rem; }
     .credit { color: var(--muted); font-size: .8rem; margin-top: 18px; }
 
+    /* ---------- Load guide ---------- */
+    .load-guide { margin-top: 22px; padding: 26px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 28px; align-items: center; border-left: 6px solid #f0a020; }
+    @media (max-width: 860px) { .load-guide { grid-template-columns: minmax(0, 1fr); } }
+    .lg-warn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text); background: color-mix(in srgb, #f0a020 22%, var(--surface)); border-radius: 999px; padding: 4px 12px 4px 8px; }
+    .lg-warn svg { width: 20px; height: 20px; }
+    .load-guide h3 { font-size: 1.45rem; margin: 12px 0 8px; }
+    .load-guide p { margin: 0; color: var(--muted); }
+    .lg-legend { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 6px; font-weight: 500; }
+    .lg-legend li { display: flex; align-items: center; gap: 10px; }
+    .lg-legend .sw { width: 22px; height: 0; border-top: 3px dashed; flex: none; }
+    .lg-legend .sw.best { border-color: #22a55b; }
+    .lg-legend .sw.max { border-color: #f0a020; }
+    .lg-drums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .lg-drum { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+    .lg-drum svg { width: 100%; max-width: 150px; height: auto; }
+    .lg-drum figcaption b { display: block; font-size: 1.05rem; }
+    .lg-drum figcaption span { color: var(--muted); font-size: .9rem; }
+    .lg-drum.best b { color: #1c8a4c; }
+    .lg-drum.max b { color: #b8730a; }
+    .lg-drum.over b { color: #d93a3f; }
+    @media (prefers-color-scheme: dark) { .lg-drum.best b { color: #4fd18a; } .lg-drum.max b { color: #ffbf4d; } .lg-drum.over b { color: #ff7a7e; } }
+
     /* ---------- Location ---------- */
     .loc { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 22px; }
     @media (max-width: 860px) { .loc { grid-template-columns: 1fr; } }
@@ -427,7 +449,7 @@
       <div class="wrap">
         <div>
           <span class="status"><span class="dot" id="statusDot"></span><span id="statusText">Open 24 hours</span></span>
-          <h1>Fresh, Clean, and Open 24/7 on <span>Memorial Dr</span></h1>
+          <h1>Fresh, Clean Laundry on <span>Memorial Drive!</span></h1>
           <p class="lead">Your neighborhood self-service laundromat in Stone Mountain, with over 7,000 sq ft of space and washers and dryers in every size, so you can get it all done in one trip.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg>Get directions</a>
@@ -462,10 +484,65 @@
           <p>Bring your clothes and detergent. We supply the machines.</p>
         </div>
         <div class="steps">
-          <div class="card step"><div class="ico"><svg><use href="#i-basket"/></svg></div><h3>Load</h3><p>Pick a washer that fits your load, from everyday clothes to comforters.</p></div>
+          <div class="card step"><div class="ico"><svg><use href="#i-basket"/></svg></div><h3>Load</h3><p>Pick a washer that fits your load. Fill it only up to 2/3 full, and half full is best.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-coin"/></svg></div><h3>Pay &amp; wash</h3><p>Choose your cycle, start the machine, and relax while it runs.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-wind"/></svg></div><h3>Dry</h3><p>Move everything to a dryer. Drying is free with your wash.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-shirt"/></svg></div><h3>Fold &amp; go</h3><p>Use our folding tables and head home with fresh, clean laundry.</p></div>
+        </div>
+        <div class="card load-guide">
+          <div class="lg-text">
+            <div class="lg-warn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 21h20L12 3z" fill="#f0a020" stroke="#1b2340" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v5" stroke="#1b2340" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="18" r="1.3" fill="#1b2340"/></svg>Caution</div>
+            <h3>Don't overload the washer</h3>
+            <p>Clothes need room to tumble. An overloaded washer doesn't clean well, can leave soap behind, and is hard on the machine. If it's too full, split it into two loads or use a bigger washer.</p>
+            <ul class="lg-legend">
+              <li><span class="sw best"></span>Half full: best clean</li>
+              <li><span class="sw max"></span>2/3 full: the most you should load</li>
+            </ul>
+          </div>
+          <div class="lg-drums">
+            <figure class="lg-drum best"><svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <clipPath id="lg-glass1"><circle cx="60" cy="60" r="44"/></clipPath>
+                <clipPath id="lg-fill1"><rect x="0" y="60.0" width="120" height="60.0"/></clipPath>
+              </defs>
+              <circle cx="60" cy="60" r="56" fill="#dbe2ec" stroke="#1b2340" stroke-width="3"/>
+              <circle cx="60" cy="60" r="44" fill="#eaf6ff"/>
+              <g clip-path="url(#lg-glass1)"><g clip-path="url(#lg-fill1)"><ellipse cx="40" cy="98" rx="18" ry="10" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="68" cy="100" rx="20" ry="11" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="88" cy="92" rx="16" ry="10" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="30" cy="84" rx="14" ry="9" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="56" cy="86" rx="17" ry="10" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="80" cy="78" rx="16" ry="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="44" cy="70" rx="16" ry="9" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="70" cy="66" rx="18" ry="10" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="32" cy="58" rx="14" ry="9" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="56" cy="52" rx="16" ry="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="84" cy="54" rx="14" ry="9" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="44" cy="40" rx="15" ry="9" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="70" cy="36" rx="17" ry="9" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="54" cy="24" rx="16" ry="8" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="34" cy="28" rx="12" ry="8" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="82" cy="26" rx="12" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/></g>
+                <line x1="10" x2="110" y1="45.3" y2="45.3" stroke="#f0a020" stroke-width="2" stroke-dasharray="5 4"/>
+                <line x1="10" x2="110" y1="60.0" y2="60.0" stroke="#22a55b" stroke-width="2" stroke-dasharray="5 4"/>
+              </g>
+              <path d="M30 40 A34 34 0 0 1 48 24" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#1b2340" stroke-width="2.5"/>
+            </svg><figcaption><b>&#10003; Best</b><span>1/2 full</span></figcaption></figure>
+            <figure class="lg-drum max"><svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <clipPath id="lg-glass2"><circle cx="60" cy="60" r="44"/></clipPath>
+                <clipPath id="lg-fill2"><rect x="0" y="45.3" width="120" height="74.7"/></clipPath>
+              </defs>
+              <circle cx="60" cy="60" r="56" fill="#dbe2ec" stroke="#1b2340" stroke-width="3"/>
+              <circle cx="60" cy="60" r="44" fill="#eaf6ff"/>
+              <g clip-path="url(#lg-glass2)"><g clip-path="url(#lg-fill2)"><ellipse cx="40" cy="98" rx="18" ry="10" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="68" cy="100" rx="20" ry="11" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="88" cy="92" rx="16" ry="10" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="30" cy="84" rx="14" ry="9" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="56" cy="86" rx="17" ry="10" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="80" cy="78" rx="16" ry="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="44" cy="70" rx="16" ry="9" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="70" cy="66" rx="18" ry="10" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="32" cy="58" rx="14" ry="9" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="56" cy="52" rx="16" ry="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="84" cy="54" rx="14" ry="9" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="44" cy="40" rx="15" ry="9" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="70" cy="36" rx="17" ry="9" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="54" cy="24" rx="16" ry="8" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="34" cy="28" rx="12" ry="8" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="82" cy="26" rx="12" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/></g>
+                <line x1="10" x2="110" y1="45.3" y2="45.3" stroke="#f0a020" stroke-width="2" stroke-dasharray="5 4"/>
+                <line x1="10" x2="110" y1="60.0" y2="60.0" stroke="#22a55b" stroke-width="2" stroke-dasharray="5 4"/>
+              </g>
+              <path d="M30 40 A34 34 0 0 1 48 24" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#1b2340" stroke-width="2.5"/>
+            </svg><figcaption><b>! Maximum</b><span>2/3 full</span></figcaption></figure>
+            <figure class="lg-drum over"><svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <clipPath id="lg-glass3"><circle cx="60" cy="60" r="44"/></clipPath>
+                <clipPath id="lg-fill3"><rect x="0" y="16.0" width="120" height="104.0"/></clipPath>
+              </defs>
+              <circle cx="60" cy="60" r="56" fill="#dbe2ec" stroke="#1b2340" stroke-width="3"/>
+              <circle cx="60" cy="60" r="44" fill="#eaf6ff"/>
+              <g clip-path="url(#lg-glass3)"><g clip-path="url(#lg-fill3)"><ellipse cx="40" cy="98" rx="18" ry="10" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="68" cy="100" rx="20" ry="11" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="88" cy="92" rx="16" ry="10" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="30" cy="84" rx="14" ry="9" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="56" cy="86" rx="17" ry="10" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="80" cy="78" rx="16" ry="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="44" cy="70" rx="16" ry="9" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="70" cy="66" rx="18" ry="10" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="32" cy="58" rx="14" ry="9" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="56" cy="52" rx="16" ry="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="84" cy="54" rx="14" ry="9" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="44" cy="40" rx="15" ry="9" fill="#6f94ff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="70" cy="36" rx="17" ry="9" fill="#7ad31f" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="54" cy="24" rx="16" ry="8" fill="#ffc94d" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="34" cy="28" rx="12" ry="8" fill="#ffffff" stroke="#1b2340" stroke-width="1.5"/><ellipse cx="82" cy="26" rx="12" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="1.5"/></g>
+                <line x1="10" x2="110" y1="45.3" y2="45.3" stroke="#f0a020" stroke-width="2" stroke-dasharray="5 4"/>
+                <line x1="10" x2="110" y1="60.0" y2="60.0" stroke="#22a55b" stroke-width="2" stroke-dasharray="5 4"/>
+              </g>
+              <path d="M30 40 A34 34 0 0 1 48 24" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#1b2340" stroke-width="2.5"/>
+            </svg><figcaption><b>&#10007; Too full</b><span>Packed to the top</span></figcaption></figure>
+          </div>
         </div>
       </div>
     </section>
