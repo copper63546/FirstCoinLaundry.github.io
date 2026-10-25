@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>First Coin Laundry · Stone Mountain, GA</title>
-  <meta name="description" content="First Coin Laundry — self-service laundromat at 4877 Memorial Dr, Stone Mountain, GA 30083. Clean washers and dryers, easy parking. Call (404) 330-8260.">
+  <meta name="description" content="First Coin Laundry — self-service laundromat at 4877 Memorial Dr, Stone Mountain, GA 30083. Over 7,000 sq ft with washers from 20 to 90 lb. Open 24/7. Call (404) 330-8260.">
   <meta property="og:title" content="First Coin Laundry · Stone Mountain, GA">
   <meta property="og:description" content="Self-service laundromat on Memorial Drive in Stone Mountain, GA.">
   <meta property="og:type" content="website">
@@ -154,7 +154,7 @@
     .hero-mascot svg { width: 100%; height: auto; display: block; animation: bob 3.2s ease-in-out infinite; }
     @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     .speech {
-      position: absolute; top: 2%; left: -14%;
+      position: absolute; top: -4%; left: -26%;
       background: var(--surface); color: var(--text); border: 2px solid var(--text);
       border-radius: 18px; padding: 8px 16px; font-weight: 700; white-space: nowrap;
       box-shadow: var(--shadow);
@@ -365,11 +365,13 @@
     <ellipse cx="78" cy="203" rx="13" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="2.4"/>
     <ellipse cx="122" cy="203" rx="13" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="2.4"/>
     <use href="#globe" x="30" y="34" width="140" height="140"/>
-    <!-- lime bow -->
-    <g transform="translate(138 46) rotate(22)">
-      <path d="M0 0 L-18 -11 Q-22 0 -18 11 Z" fill="#7ad31f" stroke="#1b2340" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M0 0 L18 -11 Q22 0 18 11 Z" fill="#7ad31f" stroke="#1b2340" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle r="5" fill="#a6ee5c" stroke="#1b2340" stroke-width="2.5"/></g>
+    <!-- little sprout -->
+    <g><animateTransform attributeName="transform" type="rotate" values="-6 100 40;6 100 40;-6 100 40" dur="2.4s" repeatCount="indefinite"/>
+      <path d="M100 40 V20" stroke="#3f8f14" stroke-width="3" stroke-linecap="round"/>
+      <path d="M100 26 q-18 -16 -28 -3 q12 11 28 3z" fill="#7ad31f" stroke="#1b2340" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M100 22 q17 -17 28 -5 q-12 11 -28 5z" fill="#9be15d" stroke="#1b2340" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M86 21 q-4 -1 -7 1 M114 15 q4 -1 7 1" stroke="#3f8f14" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
     <ellipse cx="100" cy="100" rx="56" ry="36" fill="url(#faceZone)"/>
     <!-- face -->
     <ellipse cx="77" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="75.2" cy="94.6" r="1.7" fill="#ffffff"/>
@@ -425,8 +427,8 @@
       <div class="wrap">
         <div>
           <span class="status"><span class="dot" id="statusDot"></span><span id="statusText">Open 24 hours</span></span>
-          <h1>Fresh, clean laundry on <span>Memorial Drive.</span></h1>
-          <p class="lead">Your neighborhood self-service laundromat in Stone Mountain. Washers and dryers in a range of sizes, so you can get it all done in one trip.</p>
+          <h1>Fresh, Clean, and Open 24/7 on <span>Memorial Dr</span></h1>
+          <p class="lead">Your neighborhood self-service laundromat in Stone Mountain, with over 7,000 sq ft of space and washers and dryers in every size, so you can get it all done in one trip.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg>Get directions</a>
             <a class="btn btn-ghost" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>(404) 330-8260</a>
@@ -447,7 +449,7 @@
         <div class="card stat"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><b id="statHours">Open 24/7</b><span>Wash anytime</span></div></div>
         <div class="card stat"><div class="ico"><svg><use href="#i-washer"/></svg></div><div><b>Up to 90 lb</b><span>Washers for big loads</span></div></div>
         <div class="card stat"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>With your wash</span></div></div>
-        <div class="card stat"><div class="ico"><svg><use href="#i-shirt"/></svg></div><div><b>Folding tables</b><span>Lots of room to fold</span></div></div>
+        <div class="card stat"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><b>7,000+ sq ft</b><span>Room to spread out</span></div></div>
       </div>
     </div>
 
