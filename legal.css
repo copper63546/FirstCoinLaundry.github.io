@@ -64,6 +64,26 @@ li { margin: 4px 0; }
 
 .sms { overflow-wrap: anywhere; max-width: 420px; background: var(--surface-2); border-radius: 18px 18px 18px 4px; padding: 10px 14px; margin: 10px 0; font-size: .95rem; }
 
+.optin-sign { background: #fff; color: #0e1a33; border: 3px solid #1f4fd1; border-radius: 18px; padding: 22px 24px; margin: 14px 0; max-width: 620px; }
+.optin-brand { color: #1f4fd1; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; }
+.optin-title { font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin: 2px 0 12px; }
+.optin-sign p { color: #0e1a33; }
+.optin-check { font-size: 1.1rem; margin: 0 0 10px; }
+.optin-check .box { display: inline-block; width: 20px; height: 20px; border: 2px solid #0e1a33; border-radius: 4px; vertical-align: -4px; margin-right: 10px; }
+.optin-terms { font-size: .95rem; margin: 0 0 10px; }
+.optin-links { font-size: .85rem; color: #4d5b75; margin: 0; overflow-wrap: anywhere; }
+.print-btn { font: inherit; font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--primary); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+@media print {
+  body { background: #fff; }
+  body * { visibility: hidden; }
+  .optin-sign, .optin-sign * { visibility: visible; }
+  .optin-sign { position: absolute; left: 0; top: 0; max-width: none; width: 100%; font-size: 1.25rem; }
+  .optin-title { font-size: 2.4rem; }
+  .optin-check { font-size: 1.5rem; }
+  .optin-terms { font-size: 1.2rem; }
+  .optin-links { font-size: 1rem; }
+}
+
 .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
 .links a { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; }
 
