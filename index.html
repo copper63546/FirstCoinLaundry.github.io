@@ -100,7 +100,7 @@
     }
     .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
     .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-family: "Rubik", system-ui, sans-serif; font-weight: 600; font-size: 1.2rem; }
-    .brand svg { width: 34px; height: 34px; flex: none; }
+    .brand svg { width: 44px; height: 44px; flex: none; }
     .nav-links { display: flex; gap: 22px; }
     .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
     .nav-links a:hover { color: var(--primary); }
@@ -130,7 +130,7 @@
       pointer-events: none;
     }
     .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
-    @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero-photo { max-width: 520px; margin: 0 auto; } }
+    @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
     .status {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--surface); border: 1px solid var(--border);
@@ -150,24 +150,22 @@
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
     @keyframes spin { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .bubble { animation: none; } html { scroll-behavior: auto; } }
-    .hero-photo { position: relative; }
-    .hero-photo img {
-      width: 100%; aspect-ratio: 1265 / 605; object-fit: cover;
-      border-radius: 28px; border: 6px solid var(--surface);
-      box-shadow: 0 0 0 4px var(--aqua), var(--shadow);
-      transform: rotate(1.5deg);
+    .hero-mascot { position: relative; justify-self: center; width: min(340px, 100%); }
+    .hero-mascot svg { width: 100%; height: auto; display: block; animation: bob 3.2s ease-in-out infinite; }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .speech {
+      position: absolute; top: 2%; left: -14%;
+      background: var(--surface); color: var(--text); border: 2px solid var(--text);
+      border-radius: 18px; padding: 8px 16px; font-weight: 700; white-space: nowrap;
+      box-shadow: var(--shadow);
     }
-    .hero-badge {
-      position: absolute; left: -14px; bottom: -18px;
-      background: var(--surface); border-radius: 18px; box-shadow: var(--shadow);
-      padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-      border: 1px solid var(--border);
+    .speech::after {
+      content: ""; position: absolute; right: 26px; bottom: -10px; width: 16px; height: 16px;
+      background: var(--surface); border-right: 2px solid var(--text); border-bottom: 2px solid var(--text);
+      transform: rotate(45deg);
     }
-    .hero-badge .ico { width: 40px; height: 40px; border-radius: 12px; background: var(--aqua); color: #0e1a33; display: grid; place-items: center; }
-    .hero-badge .ico svg { width: 22px; height: 22px; }
-    .hero-badge b { display: block; font-family: "Rubik", system-ui, sans-serif; font-weight: 600; }
-    .hero-badge span { color: var(--muted); font-size: .85rem; }
-    @media (max-width: 480px) { .hero-badge { left: 8px; } }
+    @media (max-width: 860px) { .hero-mascot { width: 200px; order: -1; margin-top: 28px; } .speech { top: -22px; left: 50%; right: auto; transform: translateX(-10%); font-size: .85rem; padding: 6px 12px; } }
+    @media (prefers-reduced-motion: reduce) { .hero-mascot svg { animation: none; } }
 
 
     /* ---------- Sections ---------- */
@@ -316,10 +314,94 @@
     <symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
   </svg>
 
+  <!-- Earth-chan mascot (logo badge + hero) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+    <radialGradient id="ocean" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#8fd8ff"/><stop offset=".45" stop-color="#3a7cf0"/><stop offset="1" stop-color="#16339e"/></radialGradient>
+<radialGradient id="shade" cx=".3" cy=".25" r=".9"><stop offset=".55" stop-color="#0a1440" stop-opacity="0"/><stop offset="1" stop-color="#0a1440" stop-opacity=".38"/></radialGradient>
+<radialGradient id="faceZone"><stop offset="0" stop-color="#3f7fef" stop-opacity=".95"/><stop offset=".72" stop-color="#3a78ea" stop-opacity=".85"/><stop offset="1" stop-color="#3a78ea" stop-opacity="0"/></radialGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0a8"/><stop offset=".5" stop-color="#ffc93c"/><stop offset="1" stop-color="#e59a12"/></linearGradient>
+    <path id="spark" d="M0 -9 Q1.2 -1.2 9 0 Q1.2 1.2 0 9 Q-1.2 1.2 -9 0 Q-1.2 -1.2 0 -9 Z"/>
+    <clipPath id="globeClip"><circle cx="70" cy="70" r="66"/></clipPath>
+    <g id="land">
+      <path d="M8 38 q15 -18 35 -8 q12 8 4 22 q-6 12 -20 10 q-10 10 -18 0 q-8 -12 -1 -24z"/>
+      <path d="M30 82 q12 -4 16 10 q4 14 -6 30 q-6 8 -10 -4 q-6 -18 0 -36z"/>
+      <path d="M78 26 q20 -10 40 2 q14 10 6 20 q-10 6 -20 2 q-8 14 -18 6 q-14 -10 -8 -30z"/>
+      <path d="M84 66 q14 -4 20 8 q6 16 -6 32 q-8 8 -14 -4 q-8 -18 0 -36z"/>
+      <path d="M116 98 q12 -4 16 6 q-2 10 -14 8 q-8 -6 -2 -14z"/>
+    </g>
+    <g id="clouds" fill="#ffffff" opacity=".85">
+      <path d="M14 60 q4 -8 12 -4 q6 -6 12 0 q8 0 6 6 h-30 q-4 0 0 -2z"/>
+      <path d="M88 112 q4 -8 12 -4 q6 -6 12 0 q8 0 6 6 h-30 q-4 0 0 -2z"/>
+      <path d="M100 18 q3 -6 9 -3 q5 -4 9 0 q6 0 4 4 h-22 q-3 0 0 -1z"/>
+    </g>
+    </defs>
+    <symbol id="blush" viewBox="0 0 24 12">
+    <ellipse cx="12" cy="6" rx="11" ry="5.5" fill="#ff9ab5" opacity=".75"/>
+    <path d="M6 9 L9 3 M11 9 L14 3 M16 9 L19 3" stroke="#ff6f96" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+    <symbol id="globe" viewBox="0 0 140 140">
+    <circle cx="70" cy="70" r="66" fill="url(#ocean)"/>
+    <g clip-path="url(#globeClip)">
+      <g fill="#7ad31f" stroke="#3f8f14" stroke-width="1.5">
+        <animateTransform attributeName="transform" type="translate" from="0 0" to="-140 0" dur="24s" repeatCount="indefinite"/>
+        <use href="#land"/><use href="#land" x="140"/>
+      </g>
+      <g>
+        <animateTransform attributeName="transform" type="translate" from="0 0" to="-140 0" dur="16s" repeatCount="indefinite"/>
+        <use href="#clouds"/><use href="#clouds" x="140"/>
+      </g>
+      <circle cx="70" cy="70" r="66" fill="url(#shade)"/>
+    </g>
+    <ellipse cx="46" cy="36" rx="20" ry="10" fill="#ffffff" opacity=".35" transform="rotate(-30 46 36)"/>
+    <circle cx="70" cy="70" r="66" fill="none" stroke="#1b2340" stroke-width="2.6"/>
+  </symbol>
+    <symbol id="e-chan" viewBox="0 0 200 220">
+    <ellipse cx="100" cy="212" rx="54" ry="6" fill="#1b2340" opacity=".12"/>
+    <g fill="#ffd84d">
+      <use href="#spark" transform="translate(26 54) scale(.9)"><animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/></use>
+      <use href="#spark" transform="translate(178 70) scale(.7)"><animate attributeName="opacity" values="1;0;1" dur="2.6s" repeatCount="indefinite"/></use>
+    </g>
+    <ellipse cx="78" cy="203" rx="13" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="2.4"/>
+    <ellipse cx="122" cy="203" rx="13" ry="8" fill="#ff8fb1" stroke="#1b2340" stroke-width="2.4"/>
+    <use href="#globe" x="30" y="34" width="140" height="140"/>
+    <!-- lime bow -->
+    <g transform="translate(138 46) rotate(22)">
+      <path d="M0 0 L-18 -11 Q-22 0 -18 11 Z" fill="#7ad31f" stroke="#1b2340" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M0 0 L18 -11 Q22 0 18 11 Z" fill="#7ad31f" stroke="#1b2340" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle r="5" fill="#a6ee5c" stroke="#1b2340" stroke-width="2.5"/></g>
+    <ellipse cx="100" cy="100" rx="56" ry="36" fill="url(#faceZone)"/>
+    <!-- face -->
+    <ellipse cx="77" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="75.2" cy="94.6" r="1.7" fill="#ffffff"/>
+    <ellipse cx="123" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="121.2" cy="94.6" r="1.7" fill="#ffffff"/>
+    <use href="#blush" x="54" y="106" width="16" height="8"/><use href="#blush" x="132" y="106" width="16" height="8"/>
+    <path d="M94 110 q3 3.5 6 0 q3 3.5 6 0" fill="none" stroke="#1b2340" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- arms + laundry basket -->
+    <path d="M42 130 Q48 150 64 156" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
+    <path d="M42 130 Q48 150 64 156" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M158 130 Q152 150 136 156" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
+    <path d="M158 130 Q152 150 136 156" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M78 140 q6 -12 18 -6 q6 -10 16 -2 l-2 10 h-30 z" fill="#ff8fb1" stroke="#1b2340" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M104 136 l10 -8 l12 6 l-4 8 z" fill="#7ad31f" stroke="#1b2340" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M60 146 H140 L132 186 Q131 190 127 190 H73 Q69 190 68 186 Z" fill="#4d78f0" stroke="#1b2340" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M70 158 H130 M72 170 H128 M90 148 V188 M110 148 V188" stroke="#1a3aa8" stroke-width="2.5"/>
+    <rect x="56" y="142" width="88" height="9" rx="4.5" fill="#6f94ff" stroke="#1b2340" stroke-width="2.4"/>
+    <circle cx="64" cy="152" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
+    <circle cx="136" cy="152" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
+  </symbol>
+    <symbol id="mini-badge" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="96" fill="#14309a"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#7ad31f" stroke-width="10"/>
+      <circle cx="100" cy="100" r="70" fill="#e6efff"/>
+      <svg x="38" y="30" width="124" height="136" viewBox="0 0 200 220"><use href="#e-chan"/></svg>
+    </symbol>
+  </svg>
+
+
   <header class="nav">
     <div class="wrap">
       <a class="brand" href="#top" aria-label="First Coin Laundry home">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="4" width="52" height="56" rx="12" fill="#1f4fd1"/><circle cx="32" cy="36" r="16" fill="#fff"/><circle cx="32" cy="36" r="10" fill="#7ad31f"/><circle cx="17" cy="14" r="3" fill="#fff"/><rect x="26" y="12" width="22" height="4" rx="2" fill="#fff" opacity=".6"/></svg>
+        <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#mini-badge"/></svg>
         First Coin Laundry
       </a>
       <nav class="nav-links" aria-label="Sections">
@@ -352,9 +434,9 @@
           <div class="hero-addr"><svg><use href="#i-pin"/></svg>4877 Memorial Dr, Stone Mountain, GA 30083</div>
         </div>
 
-        <div class="hero-photo">
-          <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive with its red and blue sign">
-          <div class="hero-badge"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><b>Free drying</b><span>with your wash</span></div></div>
+        <div class="hero-mascot">
+          <svg viewBox="0 0 200 220" role="img" aria-label="Earth-chan, the First Coin Laundry mascot, carrying a basket of laundry"><use href="#e-chan"/></svg>
+          <span class="speech">Come wash with us!</span>
         </div>
       </div>
     </section>
@@ -626,6 +708,10 @@
     document.getElementById("mHand").setAttribute("transform", `rotate(${mn * 6} 100 100)`);
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll("svg").forEach(el => { try { el.pauseAnimations(); } catch (e) {} });
+    }
   </script>
 </body>
 </html>
