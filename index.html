@@ -251,6 +251,31 @@
     .lg-drum.over b { color: #d93a3f; }
     @media (prefers-color-scheme: dark) { .lg-drum.best b { color: #4fd18a; } .lg-drum.max b { color: #ffbf4d; } .lg-drum.over b { color: #ff7a7e; } }
 
+    /* ---------- Wash & fold ---------- */
+    .wf { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+    @media (max-width: 860px) { .wf { grid-template-columns: minmax(0, 1fr); } }
+    .wf-price { padding: 28px; display: flex; flex-direction: column; gap: 20px; border-top: 6px solid var(--aqua); }
+    .wf-main { display: flex; align-items: center; gap: 14px; }
+    .wf-big { font-size: clamp(3.4rem, 8vw, 4.6rem); font-weight: 800; line-height: 1; color: var(--primary); letter-spacing: -0.03em; }
+    .wf-unit { color: var(--muted); font-weight: 600; line-height: 1.3; }
+    .wf-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .wf-list li { display: flex; flex-direction: column; padding-left: 16px; border-left: 3px solid var(--primary-soft); }
+    .wf-list b { font-size: 1.15rem; }
+    .wf-list span { color: var(--muted); font-size: .95rem; }
+    .wf-example { background: var(--surface-2); border-radius: 14px; padding: 14px 16px; }
+    .wf-example small { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .wf-rows div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border); font-variant-numeric: tabular-nums; }
+    .wf-rows div:last-child { border-bottom: 0; }
+    .wf-rows span { color: var(--muted); }
+    .wf-side { display: flex; flex-direction: column; gap: 14px; }
+    .wf-step { padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; }
+    .wf-step .ico { width: 48px; height: 48px; border-radius: 14px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+    .wf-step .ico svg { width: 24px; height: 24px; }
+    .wf-step h3 { font-size: 1.1rem; margin-bottom: 4px; }
+    .wf-step p { margin: 0; color: var(--muted); }
+    .wf-sms { border-left: 6px solid var(--aqua); }
+    .wf-sms a { font-weight: 600; white-space: nowrap; }
+
     /* ---------- Location ---------- */
     .loc { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 22px; }
     @media (max-width: 860px) { .loc { grid-template-columns: 1fr; } }
@@ -431,6 +456,7 @@
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#how">How it works</a>
+        <a href="#wash-fold">Wash &amp; Fold</a>
         <a href="#machines">Machines</a>
         <a href="#location">Location</a>
         <a href="#hours">Hours</a>
@@ -486,7 +512,7 @@
         </div>
         <div class="steps">
           <div class="card step"><div class="ico"><svg><use href="#i-basket"/></svg></div><h3>Load</h3><p>Pick a washer that fits your load. Fill it only up to 2/3 full, and half full is best.</p></div>
-          <div class="card step"><div class="ico"><svg><use href="#i-coin"/></svg></div><h3>Pay &amp; wash</h3><p>Choose your cycle, start the machine, and relax while it runs.</p></div>
+          <div class="card step"><div class="ico"><svg><use href="#i-coin"/></svg></div><h3>Pay &amp; wash</h3><p>Choose your cycle, start the machine, and relax while it runs. Need quarters or cash? We have a quarter machine and an ATM on site.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-wind"/></svg></div><h3>Dry</h3><p>Move everything to a dryer. Drying is free with your wash.</p></div>
           <div class="card step"><div class="ico"><svg><use href="#i-shirt"/></svg></div><h3>Fold &amp; go</h3><p>Use our folding tables and head home with fresh, clean laundry.</p></div>
         </div>
@@ -549,8 +575,41 @@
     </section>
 
 
+    <!-- ================= WASH & FOLD ================= -->
+    <section id="wash-fold" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Wash &amp; fold service</div>
+          <h2>Drop it off. We'll wash, dry and fold it.</h2>
+          <p>Short on time? Leave your laundry with us and pick it up clean and neatly folded.</p>
+        </div>
+        <div class="wf">
+          <div class="card wf-price">
+            <div class="wf-main"><span class="wf-big">$11</span><span class="wf-unit">minimum<br>covers up to 10 lb</span></div>
+            <ul class="wf-list">
+              <li><b>$1 per lb</b><span>for every pound over 10 lb</span></li>
+              <li><b>$5 per separate washer</b><span>if you want items washed apart, like whites or delicates</span></li>
+            </ul>
+            <div class="wf-example">
+              <small>Examples</small>
+              <div class="wf-rows">
+                <div><span>8 lb</span><b>$11</b></div>
+                <div><span>15 lb</span><b>$11 + 5 lb × $1 = $16</b></div>
+                <div><span>15 lb + 1 separate washer</span><b>$16 + $5 = $21</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="card wf-step"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><h3>Drop off</h3><p>Bring your laundry to the counter. We weigh it and write up your order.</p></div></div>
+            <div class="card wf-step"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><h3>We wash, dry &amp; fold</h3><p>Your clothes are washed, dried and folded for you.</p></div></div>
+            <div class="card wf-step wf-sms"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><h3>Get a text when it's ready</h3><p>Want a text when your order is done? Give us your mobile number at drop-off and reply YES to the text we send. <a href="sms.html">How text updates work</a></p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= MACHINES ================= -->
-    <section id="machines" class="alt">
+    <section id="machines">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Our machines</div>
@@ -626,7 +685,7 @@
     </section>
 
     <!-- ================= LOCATION ================= -->
-    <section id="location">
+    <section id="location" class="alt">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Find us</div>
@@ -638,6 +697,7 @@
             <div class="loc-row"><div class="ico"><svg><use href="#i-pin"/></svg></div><div><small>Address</small><strong>4877 Memorial Dr<br>Stone Mountain, GA 30083</strong></div></div>
             <div class="loc-row"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><small>Phone</small><strong><a href="tel:+14043308260">(404) 330-8260</a></strong></div></div>
             <div class="loc-row"><div class="ico"><svg><use href="#i-clock"/></svg></div><div><small>Hours</small><strong id="locHours">Open 24 hours, 7 days</strong></div></div>
+            <div class="loc-row"><div class="ico"><svg><use href="#i-coin"/></svg></div><div><small>On site</small><strong>Quarter machine &amp; ATM</strong></div></div>
             <div class="loc-actions">
               <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg>Directions</a>
               <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=First+Coin+Laundry+4877+Memorial+Dr+Stone+Mountain+GA+30083" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Open in Google Maps</a>
@@ -652,7 +712,7 @@
     </section>
 
     <!-- ================= HOURS ================= -->
-    <section id="hours" class="alt">
+    <section id="hours">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Hours</div>
@@ -683,7 +743,7 @@
     </section>
 
     <!-- ================= PHOTOS ================= -->
-    <section id="photos">
+    <section id="photos" class="alt">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">Photos</div>
