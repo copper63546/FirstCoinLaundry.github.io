@@ -340,6 +340,52 @@
     .contact-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
     @media (max-width: 760px) { .contact { grid-template-columns: 1fr; padding: 30px 22px; } }
 
+    /* ---------- Dropdown groups ---------- */
+    .groups { margin-top: 40px; border-bottom: 1px solid var(--border); }
+    .group { border-top: 1px solid var(--border); scroll-margin-top: 64px; }
+    .group > summary {
+      list-style: none; cursor: pointer; user-select: none;
+      position: sticky; top: 64px; z-index: 5;
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
+      backdrop-filter: blur(10px);
+    }
+    .group > summary::-webkit-details-marker { display: none; }
+    .group > summary .wrap { display: flex; align-items: center; gap: 14px; padding-top: 14px; padding-bottom: 14px; }
+    .group[open] > summary { border-bottom: 1px solid var(--border); }
+    .g-ico { width: 46px; height: 46px; border-radius: 14px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+    .g-ico svg { width: 24px; height: 24px; }
+    .g-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .g-txt b { font-size: 1.2rem; line-height: 1.25; }
+    .g-txt small { color: var(--muted); font-size: .88rem; }
+    .chev { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; flex: none; transition: transform .2s ease, background .2s ease; }
+    .chev::before { content: ""; width: 9px; height: 9px; border-right: 2.5px solid var(--text); border-bottom: 2.5px solid var(--text); transform: translateY(-2px) rotate(45deg); }
+    .group[open] .chev { transform: rotate(180deg); background: var(--primary-soft); }
+    .group > summary:hover .g-txt b { color: var(--primary); }
+    .group > summary:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; }
+    .group section { padding: 48px 0; scroll-margin-top: 140px; }
+    .group section + section { padding-top: 0; }
+    .group section.alt + section, .group section + section.alt { padding-top: 48px; }
+
+    /* ---------- Phone menu ---------- */
+    .menu { position: relative; display: none; }
+    .menu > summary { list-style: none; cursor: pointer; }
+    .menu > summary::-webkit-details-marker { display: none; }
+    .menu-list {
+      position: absolute; right: 0; top: calc(100% + 10px); width: min(260px, calc(100vw - 32px));
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow);
+      padding: 8px; display: flex; flex-direction: column;
+    }
+    .menu-list a { padding: 12px 14px; border-radius: 10px; color: var(--text); text-decoration: none; font-weight: 600; }
+    .menu-list a:hover, .menu-list a:focus-visible { background: var(--primary-soft); color: var(--primary); }
+    .menu-list hr { border: 0; border-top: 1px solid var(--border); margin: 6px 0; }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    @media (max-width: 760px) {
+      .menu { display: block; }
+      .brand { font-size: 1.05rem; }
+      .brand svg { width: 38px; height: 38px; }
+    }
+    @media (max-width: 380px) { .brand-name { display: none; } }
+
     footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
     .foot-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
@@ -452,7 +498,7 @@
     <div class="wrap">
       <a class="brand" href="#top" aria-label="First Coin Laundry home">
         <svg viewBox="0 0 200 200" aria-hidden="true"><use href="#mini-badge"/></svg>
-        First Coin Laundry
+        <span class="brand-name">First Coin Laundry</span>
       </a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#how">How it works</a>
@@ -463,7 +509,21 @@
         <a href="#photos">Photos</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="btn btn-primary btn-sm" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>Call</a>
+      <div class="nav-right">
+        <details class="menu">
+          <summary class="btn btn-ghost btn-sm" aria-label="Open menu">Menu ▾</summary>
+          <nav class="menu-list" aria-label="Menu">
+            <a href="#g-self">Self-service laundry</a>
+            <a href="#g-wf">Wash &amp; fold</a>
+            <a href="#g-visit">Location &amp; hours</a>
+            <a href="#g-photos">Photos</a>
+            <a href="#contact">Contact</a>
+            <hr>
+            <a href="status.html">Check my order</a>
+          </nav>
+        </details>
+        <a class="btn btn-primary btn-sm" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>Call</a>
+      </div>
     </div>
   </header>
 
@@ -501,6 +561,15 @@
         <div class="card stat"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><b>7,000+ sq ft</b><span>Room to spread out</span></div></div>
       </div>
     </div>
+
+    <div class="groups">
+    <!-- ================= GROUP: SELF-SERVICE ================= -->
+    <details class="group" id="g-self">
+      <summary><div class="wrap">
+        <span class="g-ico"><svg><use href="#i-washer"/></svg></span>
+        <span class="g-txt"><b>Self-service laundry</b><small>How it works · Load guide · Washers &amp; dryers</small></span>
+        <span class="chev" aria-hidden="true"></span>
+      </div></summary>
 
     <!-- ================= HOW IT WORKS ================= -->
     <section id="how">
@@ -569,40 +638,6 @@
               <path d="M30 40 A34 34 0 0 1 48 24" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
               <circle cx="60" cy="60" r="44" fill="none" stroke="#1b2340" stroke-width="2.5"/>
             </svg><figcaption><b>&#10007; Too full</b><span>Packed to the top</span></figcaption></figure>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ================= WASH & FOLD ================= -->
-    <section id="wash-fold" class="alt">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Wash &amp; fold service</div>
-          <h2>Drop it off. We'll wash, dry and fold it.</h2>
-          <p>Short on time? Leave your laundry with us and pick it up clean and neatly folded.</p>
-        </div>
-        <div class="wf">
-          <div class="card wf-price">
-            <div class="wf-main"><span class="wf-big">$11</span><span class="wf-unit">minimum<br>covers up to 10 lb</span></div>
-            <ul class="wf-list">
-              <li><b>$1 per lb</b><span>for every pound over 10 lb</span></li>
-              <li><b>$5 per separate washer</b><span>if you want items washed apart, like whites or delicates</span></li>
-            </ul>
-            <div class="wf-example">
-              <small>Examples</small>
-              <div class="wf-rows">
-                <div><span>8 lb</span><b>$11</b></div>
-                <div><span>15 lb</span><b>$11 + 5 lb × $1 = $16</b></div>
-                <div><span>15 lb + 1 separate washer</span><b>$16 + $5 = $21</b></div>
-              </div>
-            </div>
-          </div>
-          <div class="wf-side">
-            <div class="card wf-step"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><h3>Drop off</h3><p>Bring your laundry to the counter. We weigh it and write up your order.</p></div></div>
-            <div class="card wf-step"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><h3>We wash, dry &amp; fold</h3><p>Your clothes are washed, dried and folded for you. <a href="status.html">Check my order</a></p></div></div>
-            <div class="card wf-step wf-sms"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><h3>Get a text when it's ready</h3><p>Want a text when your order is done? Give us your mobile number at drop-off and reply YES to the text we send. <a href="sms.html">How text updates work</a></p></div></div>
           </div>
         </div>
       </div>
@@ -683,6 +718,58 @@
         <p class="credit">Machine photos are Dexter product images. Machines in the store may look slightly different.</p>
       </div>
     </section>
+    </details>
+
+    <!-- ================= GROUP: WASH & FOLD ================= -->
+    <details class="group" id="g-wf">
+      <summary><div class="wrap">
+        <span class="g-ico"><svg><use href="#i-shirt"/></svg></span>
+        <span class="g-txt"><b>Wash &amp; fold</b><small>Pricing · Drop-off · Text when ready</small></span>
+        <span class="chev" aria-hidden="true"></span>
+      </div></summary>
+
+    <!-- ================= WASH & FOLD ================= -->
+    <section id="wash-fold" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Wash &amp; fold service</div>
+          <h2>Drop it off. We'll wash, dry and fold it.</h2>
+          <p>Short on time? Leave your laundry with us and pick it up clean and neatly folded.</p>
+        </div>
+        <div class="wf">
+          <div class="card wf-price">
+            <div class="wf-main"><span class="wf-big">$11</span><span class="wf-unit">minimum<br>covers up to 10 lb</span></div>
+            <ul class="wf-list">
+              <li><b>$1 per lb</b><span>for every pound over 10 lb</span></li>
+              <li><b>$5 per separate washer</b><span>if you want items washed apart, like whites or delicates</span></li>
+            </ul>
+            <div class="wf-example">
+              <small>Examples</small>
+              <div class="wf-rows">
+                <div><span>8 lb</span><b>$11</b></div>
+                <div><span>15 lb</span><b>$11 + 5 lb × $1 = $16</b></div>
+                <div><span>15 lb + 1 separate washer</span><b>$16 + $5 = $21</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="card wf-step"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><h3>Drop off</h3><p>Bring your laundry to the counter. We weigh it and write up your order.</p></div></div>
+            <div class="card wf-step"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><h3>We wash, dry &amp; fold</h3><p>Your clothes are washed, dried and folded for you. <a href="status.html">Check my order</a></p></div></div>
+            <div class="card wf-step wf-sms"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><h3>Get a text when it's ready</h3><p>Want a text when your order is done? Give us your mobile number at drop-off and reply YES to the text we send. <a href="sms.html">How text updates work</a></p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </details>
+
+    <!-- ================= GROUP: LOCATION &AMP; HOURS ================= -->
+    <details class="group" id="g-visit">
+      <summary><div class="wrap">
+        <span class="g-ico"><svg><use href="#i-pin"/></svg></span>
+        <span class="g-txt"><b>Location &amp; hours</b><small>Address · Map · Open 24/7</small></span>
+        <span class="chev" aria-hidden="true"></span>
+      </div></summary>
 
     <!-- ================= LOCATION ================= -->
     <section id="location" class="alt">
@@ -742,6 +829,16 @@
       </div>
     </section>
 
+    </details>
+
+    <!-- ================= GROUP: PHOTOS ================= -->
+    <details class="group" id="g-photos">
+      <summary><div class="wrap">
+        <span class="g-ico"><svg><use href="#i-sparkle"/></svg></span>
+        <span class="g-txt"><b>Photos</b><small>Take a look inside</small></span>
+        <span class="chev" aria-hidden="true"></span>
+      </div></summary>
+
     <!-- ================= PHOTOS ================= -->
     <section id="photos" class="alt">
       <div class="wrap">
@@ -765,6 +862,9 @@
         </div>
       </div>
     </section>
+
+    </details>
+    </div>
 
     <!-- ================= CONTACT ================= -->
     <section id="contact">
@@ -848,6 +948,37 @@
     document.getElementById("mHand").setAttribute("transform", `rotate(${mn * 6} 100 100)`);
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---- Dropdown groups ----
+    // Groups start closed. Phones keep one open at a time.
+    const groups = [...document.querySelectorAll("details.group")];
+    const menu = document.querySelector("details.menu");
+    const phone = matchMedia("(max-width: 760px)");
+    let jumping = false;
+
+    // Open the group holding a link's target before the browser scrolls to it
+    const openFor = hash => {
+      const el = hash && hash.length > 1 && document.getElementById(hash.slice(1));
+      const g = el && (el.matches("details.group") ? el : el.closest("details.group"));
+      if (g && !g.open) {
+        jumping = true;
+        if (phone.matches) groups.forEach(o => { if (o !== g) o.open = false; });
+        g.open = true;
+      }
+      return el;
+    };
+    document.addEventListener("click", e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (a) { openFor(a.getAttribute("href")); if (menu) menu.open = false; }
+      else if (menu && menu.open && !menu.contains(e.target)) menu.open = false;
+    });
+    groups.forEach(g => g.addEventListener("toggle", () => {
+      if (!g.open || !phone.matches) return;
+      if (jumping) { jumping = false; return; }
+      groups.forEach(o => { if (o !== g) o.open = false; });
+      g.scrollIntoView({ block: "start" });
+    }));
+    if (location.hash) { const el = openFor(location.hash); if (el) requestAnimationFrame(() => el.scrollIntoView()); }
 
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.querySelectorAll("svg").forEach(el => { try { el.pauseAnimations(); } catch (e) {} });
