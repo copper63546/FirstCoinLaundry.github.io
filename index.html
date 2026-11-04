@@ -102,9 +102,9 @@
     .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-family: "Rubik", system-ui, sans-serif; font-weight: 600; font-size: 1.2rem; }
     .brand svg { width: 44px; height: 44px; flex: none; }
     .nav-links { display: flex; gap: 22px; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; white-space: nowrap; }
     .nav-links a:hover { color: var(--primary); }
-    @media (max-width: 760px) { .nav-links { display: none; } }
+    @media (max-width: 1100px) { .nav-links { display: none; } }
 
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -151,8 +151,100 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .bubble { animation: none; } html { scroll-behavior: auto; } }
     .hero-mascot { position: relative; justify-self: center; width: min(340px, 100%); }
-    .hero-mascot svg { width: 100%; height: auto; display: block; animation: bob 3.2s ease-in-out infinite; }
-    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    /* mascot:start */
+    /* ---------- Earth-chan's moves (one class on .hero-mascot per act; see ACTS in the script) ---------- */
+    .hero-mascot svg { width: 100%; height: auto; display: block; overflow: visible; transform-origin: 50% 95%; animation: jig 2.6s ease-in-out infinite; cursor: pointer; }
+    .hero-mascot svg * { transform-box: fill-box; transform-origin: center; }
+    @keyframes jig { 0%, 50%, 100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-7px) rotate(-3deg); } 75% { transform: translateY(-7px) rotate(3deg); } }
+
+    /* what shows when nothing special is happening */
+    .m-fx, .m-alt-eyes > *, .m-blush-big, .m-mouth, .m-camera, .m-waving { opacity: 0; }
+    .m-smile, .m-basket, .m-eyes > * { opacity: 1; }
+    .m-mouth, .m-basket, .m-camera, .m-waving, .m-eyes > *, .m-alt-eyes > *, .m-blush-big, .m-fx { transition: opacity .25s, transform .35s; }
+    .m-eyes { animation: blink 5s infinite; }
+    @keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+    @keyframes pop { from { transform: scale(0); } 70% { transform: scale(1.25); } to { transform: scale(1); } }
+    @keyframes sway { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+
+    /* shared swaps */
+    .hero-mascot:is(.whistle, .jump, .love, .bloom, .sparkle, .spin) .m-smile { opacity: 0; }
+    .hero-mascot:is(.jump, .love, .bloom, .sparkle, .spin) .m-grin { opacity: 1; }
+    .hero-mascot:is(.jump, .love, .sparkle, .sleepy) .m-eyes > * { opacity: 0; }
+    .hero-mascot:is(.jump, .love, .sparkle) .m-happy { opacity: 1; }
+    .hero-mascot:is(.photo, .wave) .m-basket { opacity: 0; transform: translateY(14px); }
+
+    /* wave hello */
+    .hero-mascot.wave .m-waving { opacity: 1; }
+    .m-wave-arm { transform-origin: 0% 100% !important; }
+    .hero-mascot.wave .m-wave-arm { animation: wave .45s ease-in-out infinite alternate; }
+    @keyframes wave { from { transform: rotate(-14deg); } to { transform: rotate(16deg); } }
+
+    /* whistle */
+    .hero-mascot.whistle .m-whistle { opacity: 1; animation: pucker .5s ease-in-out infinite alternate; }
+    @keyframes pucker { to { transform: scale(.75); } }
+    .hero-mascot.whistle .m-notes { opacity: 1; }
+    .m-notes > * { opacity: 0; }
+    .hero-mascot.whistle .n1 { animation: note 1.4s ease-out infinite; }
+    .hero-mascot.whistle .n2 { animation: note 1.4s ease-out .7s infinite; }
+    @keyframes note { 0% { opacity: 0; transform: translate(-10px, 10px) rotate(-10deg); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(14px, -26px) rotate(12deg); } }
+
+    /* big jumps */
+    .hero-mascot.jump svg { animation: hop .8s cubic-bezier(.3, 0, .4, 1) 5; }
+    @keyframes hop { 0%, 100% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.08, .9); } 45% { transform: translateY(-34px) scale(.95, 1.06); } 80% { transform: translateY(0) scale(1.06, .93); } }
+
+    /* love */
+    .hero-mascot.love .m-blush-big { opacity: .8; }
+    .hero-mascot.love .m-hearts { opacity: 1; }
+    .m-hearts > * { opacity: 0; }
+    .hero-mascot.love .h1 { animation: heart 1.6s ease-out infinite; }
+    .hero-mascot.love .h2 { animation: heart 1.6s ease-out .4s infinite; }
+    .hero-mascot.love .h3 { animation: heart 1.6s ease-out .8s infinite; }
+    @keyframes heart { 0% { opacity: 0; transform: translateY(8px) scale(.3); } 30% { opacity: 1; transform: translateY(0) scale(1.15); } 100% { opacity: 0; transform: translateY(-22px) scale(.9); } }
+
+    /* spin cycle */
+    .hero-mascot.spin svg { animation: spinY 1.4s cubic-bezier(.5, 0, .3, 1) 3; transform-origin: 50% 50%; }
+    @keyframes spinY { to { transform: rotateY(360deg); } }
+
+    /* bloom: stems draw themselves out of the globe, then flowers pop open one after another */
+    .hero-mascot.bloom .m-flower { opacity: 1; }
+    .m-flower .st { stroke-dasharray: 1; stroke-dashoffset: 1; }
+    .hero-mascot.bloom .m-flower .st { animation: grow .6s ease-out var(--d) both; }
+    @keyframes grow { to { stroke-dashoffset: 0; } }
+    .m-flower .fl { transform: scale(0); }
+    .hero-mascot.bloom .m-flower .fl { animation: pop .5s ease-out var(--d) both, sway 1.6s ease-in-out calc(var(--d) + .5s) infinite alternate; }
+
+    /* sparkle */
+    .hero-mascot.sparkle .m-sparkles { opacity: 1; }
+    .m-sparkles use { opacity: 0; }
+    .hero-mascot.sparkle .s1 { animation: twinkle 1s ease-out infinite; }
+    .hero-mascot.sparkle .s2 { animation: twinkle 1s ease-out .25s infinite; }
+    .hero-mascot.sparkle .s3 { animation: twinkle 1s ease-out .5s infinite; }
+    .hero-mascot.sparkle .s4 { animation: twinkle 1s ease-out .75s infinite; }
+    .hero-mascot.sparkle .s5 { animation: twinkle 1s ease-out .4s infinite; }
+    @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(.2) rotate(0); } 50% { opacity: 1; transform: scale(1.5) rotate(45deg); } }
+
+    /* say cheese: a photo of the visitor */
+    .hero-mascot.photo .m-camera { opacity: 1; }
+    .hero-mascot.photo .m-eye-r { opacity: 0; }
+    .hero-mascot.photo .m-wink { opacity: 1; }
+    .hero-mascot.snap .m-bulb { fill: #ffffff; }
+    .flash { position: fixed; inset: 0; z-index: 50; pointer-events: none; background: #ffffff; opacity: 0; }
+    .flash.on { animation: flash .45s ease-out; }
+    @keyframes flash { 15% { opacity: .5; } 100% { opacity: 0; } }
+
+    /* nap */
+    .hero-mascot.sleepy svg { animation: snooze 3s ease-in-out infinite; }
+    @keyframes snooze { 0%, 100% { transform: rotate(-2deg) scale(1); } 50% { transform: rotate(2deg) scale(1.02, .98); } }
+    .hero-mascot.sleepy .m-closed { opacity: 1; }
+    .hero-mascot.sleepy .m-zzz { opacity: 1; }
+    .m-zzz > * { opacity: 0; }
+    .hero-mascot.sleepy .z1 { animation: zz 2.4s ease-out infinite; }
+    .hero-mascot.sleepy .z2 { animation: zz 2.4s ease-out .6s infinite; }
+    .hero-mascot.sleepy .z3 { animation: zz 2.4s ease-out 1.2s infinite; }
+    @keyframes zz { 0% { opacity: 0; transform: translate(-6px, 8px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(8px, -12px); } }
+
+    @media (prefers-reduced-motion: reduce) { .hero-mascot svg, .hero-mascot svg * { animation: none !important; } .hero-mascot.bloom .m-flower .fl { transform: none; } .hero-mascot.bloom .m-flower .st { stroke-dashoffset: 0; } }
+    /* mascot:end */
     .speech {
       position: absolute; top: -4%; left: -26%;
       background: var(--surface); color: var(--text); border: 2px solid var(--text);
@@ -165,7 +257,6 @@
       transform: rotate(45deg);
     }
     @media (max-width: 860px) { .hero-mascot { width: 200px; order: -1; margin-top: 28px; } .speech { top: -22px; left: 50%; right: auto; transform: translateX(-10%); font-size: .85rem; padding: 6px 12px; } }
-    @media (prefers-reduced-motion: reduce) { .hero-mascot svg { animation: none; } }
 
 
     /* ---------- Sections ---------- */
@@ -379,12 +470,15 @@
     .menu-list a:hover, .menu-list a:focus-visible { background: var(--primary-soft); color: var(--primary); }
     .menu-list hr { border: 0; border-top: 1px solid var(--border); margin: 6px 0; }
     .nav-right { display: flex; align-items: center; gap: 8px; }
+    @media (max-width: 1100px) { .menu { display: block; } }
     @media (max-width: 760px) {
-      .menu { display: block; }
       .brand { font-size: 1.05rem; }
       .brand svg { width: 38px; height: 38px; }
     }
-    @media (max-width: 380px) { .brand-name { display: none; } }
+    /* Phones: drop the shop name and shorten the buttons so Menu, Check my order and Call fit */
+    @media (max-width: 520px) { .brand-name { display: none; } .btn-order svg { display: none; } }
+    .order-short { display: none; }
+    @media (max-width: 380px) { .call-txt, .order-long { display: none; } .order-short { display: inline; } .nav-right .btn-sm { padding: 8px 12px; } }
 
     footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
@@ -397,6 +491,7 @@
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
     <symbol id="i-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8-8-2z"/></symbol>
     <symbol id="i-washer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="3"/><circle cx="12" cy="13.5" r="5"/><path d="M7.5 6h.01M10.5 6h3"/></symbol>
@@ -450,7 +545,7 @@
     <ellipse cx="46" cy="36" rx="20" ry="10" fill="#ffffff" opacity=".35" transform="rotate(-30 46 36)"/>
     <circle cx="70" cy="70" r="66" fill="none" stroke="#1b2340" stroke-width="2.6"/>
   </symbol>
-    <symbol id="e-chan" viewBox="0 0 200 220">
+    <symbol id="e-body" viewBox="0 0 200 220">
     <ellipse cx="100" cy="212" rx="54" ry="6" fill="#1b2340" opacity=".12"/>
     <g fill="#ffd84d">
       <use href="#spark" transform="translate(26 54) scale(.9)"><animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/></use>
@@ -467,12 +562,15 @@
       <path d="M86 21 q-4 -1 -7 1 M114 15 q4 -1 7 1" stroke="#3f8f14" stroke-width="1.6" stroke-linecap="round"/>
     </g>
     <ellipse cx="100" cy="100" rx="56" ry="36" fill="url(#faceZone)"/>
-    <!-- face -->
+  </symbol>
+    <symbol id="e-face" viewBox="0 0 200 220">
     <ellipse cx="77" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="75.2" cy="94.6" r="1.7" fill="#ffffff"/>
     <ellipse cx="123" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="121.2" cy="94.6" r="1.7" fill="#ffffff"/>
     <use href="#blush" x="54" y="106" width="16" height="8"/><use href="#blush" x="132" y="106" width="16" height="8"/>
     <path d="M94 110 q3 3.5 6 0 q3 3.5 6 0" fill="none" stroke="#1b2340" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
     <!-- arms + laundry basket -->
+    <symbol id="e-arms" viewBox="0 0 200 220">
     <path d="M42 130 Q48 150 64 156" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
     <path d="M42 130 Q48 150 64 156" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
     <path d="M158 130 Q152 150 136 156" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
@@ -485,6 +583,9 @@
     <circle cx="64" cy="152" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
     <circle cx="136" cy="152" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
   </symbol>
+    <symbol id="e-chan" viewBox="0 0 200 220">
+      <use href="#e-body"/><use href="#e-face"/><use href="#e-arms"/>
+    </symbol>
     <symbol id="mini-badge" viewBox="0 0 200 200">
       <circle cx="100" cy="100" r="96" fill="#14309a"/>
       <circle cx="100" cy="100" r="86" fill="none" stroke="#7ad31f" stroke-width="10"/>
@@ -501,28 +602,25 @@
         <span class="brand-name">First Coin Laundry</span>
       </a>
       <nav class="nav-links" aria-label="Sections">
-        <a href="#how">How it works</a>
         <a href="#wash-fold">Wash &amp; Fold</a>
-        <a href="#machines">Machines</a>
-        <a href="#location">Location</a>
-        <a href="#hours">Hours</a>
+        <a href="#how">Self-service</a>
         <a href="#photos">Photos</a>
+        <a href="#location">Location &amp; Hours</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-right">
         <details class="menu">
           <summary class="btn btn-ghost btn-sm" aria-label="Open menu">Menu ▾</summary>
           <nav class="menu-list" aria-label="Menu">
-            <a href="#g-self">Self-service laundry</a>
             <a href="#g-wf">Wash &amp; fold</a>
-            <a href="#g-visit">Location &amp; hours</a>
+            <a href="#g-self">Self-service laundry</a>
             <a href="#g-photos">Photos</a>
+            <a href="#g-visit">Location &amp; hours</a>
             <a href="#contact">Contact</a>
-            <hr>
-            <a href="status.html">Check my order</a>
           </nav>
         </details>
-        <a class="btn btn-primary btn-sm" href="tel:+14043308260"><svg><use href="#i-phone"/></svg>Call</a>
+        <a class="btn btn-ghost btn-sm btn-order" href="status.html"><svg><use href="#i-search"/></svg><span class="order-long">Check my order</span><span class="order-short">My order</span></a>
+        <a class="btn btn-primary btn-sm" href="tel:+14043308260" aria-label="Call (404) 330-8260"><svg><use href="#i-phone"/></svg><span class="call-txt">Call</span></a>
       </div>
     </div>
   </header>
@@ -546,8 +644,83 @@
         </div>
 
         <div class="hero-mascot">
-          <svg viewBox="0 0 200 220" role="img" aria-label="Earth-chan, the First Coin Laundry mascot, carrying a basket of laundry"><use href="#e-chan"/></svg>
-          <span class="speech">Come wash with us!</span>
+          <svg viewBox="0 0 200 220" role="img" aria-label="Earth-chan, the First Coin Laundry mascot, carrying a basket of laundry">
+            <g class="m-fx m-sparkles" fill="#ffd84d" stroke="#1b2340" stroke-width=".8">
+              <g transform="translate(30 70)"><use class="s1" href="#spark"/></g><g transform="translate(172 58)"><use class="s2" href="#spark"/></g>
+              <g transform="translate(20 150)"><use class="s3" href="#spark"/></g><g transform="translate(182 140)"><use class="s4" href="#spark"/></g><g transform="translate(148 18)"><use class="s5" href="#spark"/></g>
+            </g>
+            <use href="#e-body"/>
+            <!-- bloom: stems grow out of the globe one by one, then each opens a flower -->
+            <defs><g id="m-bloom" stroke="#1b2340" stroke-width="1.4"><circle cx="0" cy="-6" r="4.5"/><circle cx="5.7" cy="-1.9" r="4.5"/><circle cx="3.5" cy="4.9" r="4.5"/><circle cx="-3.5" cy="4.9" r="4.5"/><circle cx="-5.7" cy="-1.9" r="4.5"/><circle r="3.4" fill="#ffd84d"/></g></defs>
+            <g class="m-fx m-flower">
+              <g fill="none" stroke="#3f8f14" stroke-width="3" stroke-linecap="butt">
+                <path class="st" style="--d:0s" pathLength="1" d="M38 81 q-8 -1 -15 -5"/>
+                <path class="st" style="--d:0.35s" pathLength="1" d="M162 81 q8 -1 15 -5"/>
+                <path class="st" style="--d:0.8s" pathLength="1" d="M58 53 q-6 -6 -10 -13"/>
+                <path class="st" style="--d:1.15s" pathLength="1" d="M142 53 q6 -6 10 -13"/>
+              </g>
+              <g transform="translate(23 76)"><g class="fl" style="--d:0.45s"><use href="#m-bloom" fill="#ff8fb1"/></g></g>
+              <g transform="translate(177 76)"><g class="fl" style="--d:0.8s"><use href="#m-bloom" fill="#ffffff"/></g></g>
+              <g transform="translate(48 40)"><g class="fl" style="--d:1.25s"><use href="#m-bloom" fill="#b98cff"/></g></g>
+              <g transform="translate(152 40)"><g class="fl" style="--d:1.6s"><use href="#m-bloom" fill="#7fd0ff"/></g></g>
+              <g transform="translate(100 12)"><g class="fl" style="--d:2.1s"><use href="#m-bloom" fill="#ff8fb1" transform="scale(1.4)"/></g></g>
+            </g>
+            <!-- eyes: normal, plus closed / happy / wink shapes the acts switch to -->
+            <g class="m-eyes">
+              <g class="m-eye-l"><ellipse cx="77" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="75.2" cy="94.6" r="1.7" fill="#ffffff"/></g>
+              <g class="m-eye-r"><ellipse cx="123" cy="97.2" rx="5" ry="6.5" fill="#1b2340"/><circle cx="121.2" cy="94.6" r="1.7" fill="#ffffff"/></g>
+            </g>
+            <g class="m-alt-eyes" fill="none" stroke="#1b2340" stroke-width="2.6" stroke-linecap="round">
+              <path class="m-wink" d="M117 98 q6 -5 12 0"/>
+              <g class="m-closed"><path d="M71 97 q6 5 12 0"/><path d="M117 97 q6 5 12 0"/></g>
+              <g class="m-happy"><path d="M71 100 q6 -8 12 0"/><path d="M117 100 q6 -8 12 0"/></g>
+            </g>
+            <use href="#blush" x="54" y="106" width="16" height="8"/><use href="#blush" x="132" y="106" width="16" height="8"/>
+            <g class="m-blush-big" fill="#ff8fb1"><ellipse cx="62" cy="110" rx="9" ry="5"/><ellipse cx="140" cy="110" rx="9" ry="5"/></g>
+            <!-- mouths -->
+            <path class="m-mouth m-smile" d="M94 110 q3 3.5 6 0 q3 3.5 6 0" fill="none" stroke="#1b2340" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse class="m-mouth m-whistle" cx="100" cy="112" rx="3" ry="3.6" fill="#1b2340"/>
+            <path class="m-mouth m-grin" d="M92 108 q8 11 16 0 z" fill="#1b2340" stroke="#1b2340" stroke-width="1.6" stroke-linejoin="round"/>
+            <!-- floating extras -->
+            <g class="m-fx m-notes" fill="#1b2340">
+              <g class="n1"><path d="M141 96 v-14 l8 -2 v12" fill="none" stroke="#1b2340" stroke-width="2" stroke-linecap="round"/><circle cx="139" cy="96" r="3"/><circle cx="147" cy="92" r="3"/></g>
+              <g class="n2"><path d="M154 84 v-12" fill="none" stroke="#1b2340" stroke-width="2" stroke-linecap="round"/><circle cx="152" cy="84" r="3"/></g>
+            </g>
+            <g class="m-fx m-zzz" fill="#1b2340" font-family="Rubik, system-ui, sans-serif" font-weight="800">
+              <text class="z1" x="140" y="70" font-size="14">z</text><text class="z2" x="150" y="54" font-size="18">z</text><text class="z3" x="162" y="34" font-size="22">Z</text>
+            </g>
+            <g class="m-fx m-hearts" fill="#ff5c8a" stroke="#1b2340" stroke-width="1.4">
+              <path class="h1" d="M52 46 c0 -5 -7 -5 -7 0 c0 4 7 8 7 10 c0 -2 7 -6 7 -10 c0 -5 -7 -5 -7 0z"/>
+              <path class="h2" d="M150 40 c0 -6 -9 -6 -9 0 c0 5 9 10 9 12 c0 -2 9 -7 9 -12 c0 -6 -9 -6 -9 0z"/>
+              <path class="h3" d="M126 14 c0 -4 -6 -4 -6 0 c0 3 6 7 6 8 c0 -1 6 -5 6 -8 c0 -4 -6 -4 -6 0z"/>
+            </g>
+            <!-- arms: basket (default), camera, or waving -->
+            <g class="m-basket"><use href="#e-arms"/></g>
+            <g class="m-camera">
+              <path d="M42 130 Q50 136 68 134" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
+              <path d="M42 130 Q50 136 68 134" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+              <path d="M158 130 Q150 136 132 134" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
+              <path d="M158 130 Q150 136 132 134" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+              <rect x="86" y="111" width="18" height="8" rx="3" fill="#1b2340"/>
+              <rect x="68" y="116" width="64" height="38" rx="9" fill="#ff8fb1" stroke="#1b2340" stroke-width="2.6"/>
+              <circle cx="100" cy="135" r="12" fill="#4d78f0" stroke="#1b2340" stroke-width="2.6"/>
+              <circle cx="100" cy="135" r="5.5" fill="#1a3aa8"/><circle cx="97" cy="132" r="2" fill="#ffffff"/>
+              <rect class="m-bulb" x="118" y="121" width="8" height="5" rx="2" fill="#ffd84d" stroke="#1b2340" stroke-width="1.5"/>
+              <circle cx="68" cy="134" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
+              <circle cx="132" cy="134" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
+            </g>
+            <g class="m-waving">
+              <path d="M42 130 Q38 150 48 164" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
+              <path d="M42 130 Q38 150 48 164" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="48" cy="165" r="7" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
+              <g class="m-wave-arm">
+                <path d="M158 130 Q176 116 174 92" fill="none" stroke="#1b2340" stroke-width="10" stroke-linecap="round"/>
+                <path d="M158 130 Q176 116 174 92" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="174" cy="90" r="7.5" fill="#ffffff" stroke="#1b2340" stroke-width="2.5"/>
+              </g>
+            </g>
+          </svg>
+          <span class="speech" aria-live="polite">Come wash with us!</span>
         </div>
       </div>
     </section>
@@ -563,6 +736,49 @@
     </div>
 
     <div class="groups">
+    <!-- ================= GROUP: WASH & FOLD ================= -->
+    <details class="group" id="g-wf">
+      <summary><div class="wrap">
+        <span class="g-ico"><svg><use href="#i-shirt"/></svg></span>
+        <span class="g-txt"><b>Wash &amp; fold</b><small>Pricing · Drop-off · Text when ready</small></span>
+        <span class="chev" aria-hidden="true"></span>
+      </div></summary>
+
+    <!-- ================= WASH & FOLD ================= -->
+    <section id="wash-fold" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Wash &amp; fold service</div>
+          <h2>Drop it off. We'll wash, dry and fold it.</h2>
+          <p>Short on time? Leave your laundry with us and pick it up clean and neatly folded.</p>
+        </div>
+        <div class="wf">
+          <div class="card wf-price">
+            <div class="wf-main"><span class="wf-big">$11</span><span class="wf-unit">minimum<br>covers up to 10 lb</span></div>
+            <ul class="wf-list">
+              <li><b>$1 per lb</b><span>for every pound over 10 lb</span></li>
+              <li><b>$5 per separate washer</b><span>if you want items washed apart, like whites or delicates</span></li>
+            </ul>
+            <div class="wf-example">
+              <small>Examples</small>
+              <div class="wf-rows">
+                <div><span>8 lb</span><b>$11</b></div>
+                <div><span>15 lb</span><b>$11 + 5 lb × $1 = $16</b></div>
+                <div><span>15 lb + 1 separate washer</span><b>$16 + $5 = $21</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-side">
+            <div class="card wf-step"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><h3>Drop off</h3><p>Bring your laundry to the counter. We weigh it and write up your order.</p></div></div>
+            <div class="card wf-step"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><h3>We wash, dry &amp; fold</h3><p>Your clothes are washed, dried and folded for you. <a href="status.html">Check my order</a></p></div></div>
+            <div class="card wf-step wf-sms"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><h3>Get a text when it's ready</h3><p>Want a text when your order is done? Give us your mobile number at drop-off and reply YES to the text we send. <a href="sms.html">How text updates work</a></p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </details>
+
     <!-- ================= GROUP: SELF-SERVICE ================= -->
     <details class="group" id="g-self">
       <summary><div class="wrap">
@@ -720,43 +936,34 @@
     </section>
     </details>
 
-    <!-- ================= GROUP: WASH & FOLD ================= -->
-    <details class="group" id="g-wf">
+    <!-- ================= GROUP: PHOTOS ================= -->
+    <details class="group" id="g-photos">
       <summary><div class="wrap">
-        <span class="g-ico"><svg><use href="#i-shirt"/></svg></span>
-        <span class="g-txt"><b>Wash &amp; fold</b><small>Pricing · Drop-off · Text when ready</small></span>
+        <span class="g-ico"><svg><use href="#i-sparkle"/></svg></span>
+        <span class="g-txt"><b>Photos</b><small>Take a look inside</small></span>
         <span class="chev" aria-hidden="true"></span>
       </div></summary>
 
-    <!-- ================= WASH & FOLD ================= -->
-    <section id="wash-fold" class="alt">
+    <!-- ================= PHOTOS ================= -->
+    <section id="photos" class="alt">
       <div class="wrap">
         <div class="section-head">
-          <div class="eyebrow">Wash &amp; fold service</div>
-          <h2>Drop it off. We'll wash, dry and fold it.</h2>
-          <p>Short on time? Leave your laundry with us and pick it up clean and neatly folded.</p>
+          <div class="eyebrow">Photos</div>
+          <h2>Take a look inside</h2>
         </div>
-        <div class="wf">
-          <div class="card wf-price">
-            <div class="wf-main"><span class="wf-big">$11</span><span class="wf-unit">minimum<br>covers up to 10 lb</span></div>
-            <ul class="wf-list">
-              <li><b>$1 per lb</b><span>for every pound over 10 lb</span></li>
-              <li><b>$5 per separate washer</b><span>if you want items washed apart, like whites or delicates</span></li>
-            </ul>
-            <div class="wf-example">
-              <small>Examples</small>
-              <div class="wf-rows">
-                <div><span>8 lb</span><b>$11</b></div>
-                <div><span>15 lb</span><b>$11 + 5 lb × $1 = $16</b></div>
-                <div><span>15 lb + 1 separate washer</span><b>$16 + $5 = $21</b></div>
-              </div>
-            </div>
-          </div>
-          <div class="wf-side">
-            <div class="card wf-step"><div class="ico"><svg><use href="#i-basket"/></svg></div><div><h3>Drop off</h3><p>Bring your laundry to the counter. We weigh it and write up your order.</p></div></div>
-            <div class="card wf-step"><div class="ico"><svg><use href="#i-wind"/></svg></div><div><h3>We wash, dry &amp; fold</h3><p>Your clothes are washed, dried and folded for you. <a href="status.html">Check my order</a></p></div></div>
-            <div class="card wf-step wf-sms"><div class="ico"><svg><use href="#i-phone"/></svg></div><div><h3>Get a text when it's ready</h3><p>Want a text when your order is done? Give us your mobile number at drop-off and reply YES to the text we send. <a href="sms.html">How text updates work</a></p></div></div>
-          </div>
+        <div class="gallery">
+          <figure class="full">
+            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy">
+            <figcaption>Storefront</figcaption>
+          </figure>
+          <figure class="big">
+            <img src="images/dryers.jpg" alt="Wall of stacked Dexter dryers" loading="lazy">
+            <figcaption>Dryers</figcaption>
+          </figure>
+          <figure class="big">
+            <img src="images/interior.jpg" alt="Open interior with pool table and entrance" loading="lazy">
+            <figcaption>Pool table &amp; entrance</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -825,40 +1032,6 @@
             <table><tbody id="hoursBody"></tbody></table>
             <p class="note">Holiday hours may vary. Please call ahead if you're unsure.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    </details>
-
-    <!-- ================= GROUP: PHOTOS ================= -->
-    <details class="group" id="g-photos">
-      <summary><div class="wrap">
-        <span class="g-ico"><svg><use href="#i-sparkle"/></svg></span>
-        <span class="g-txt"><b>Photos</b><small>Take a look inside</small></span>
-        <span class="chev" aria-hidden="true"></span>
-      </div></summary>
-
-    <!-- ================= PHOTOS ================= -->
-    <section id="photos" class="alt">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Photos</div>
-          <h2>Take a look inside</h2>
-        </div>
-        <div class="gallery">
-          <figure class="full">
-            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy">
-            <figcaption>Storefront</figcaption>
-          </figure>
-          <figure class="big">
-            <img src="images/dryers.jpg" alt="Wall of stacked Dexter dryers" loading="lazy">
-            <figcaption>Dryers</figcaption>
-          </figure>
-          <figure class="big">
-            <img src="images/interior.jpg" alt="Open interior with pool table and entrance" loading="lazy">
-            <figcaption>Pool table &amp; entrance</figcaption>
-          </figure>
         </div>
       </div>
     </section>
@@ -979,6 +1152,58 @@
       g.scrollIntoView({ block: "start" });
     }));
     if (location.hash) { const el = openFor(location.hash); if (el) requestAnimationFrame(() => el.scrollIntoView()); }
+
+    // mascot:start
+    // ---- Earth-chan's moves. She goes through them in order, resting a few seconds between each; tapping her takes a photo. ----
+    // Each act adds its class to .hero-mascot for `ms`, and the CSS above does the drawing.
+    const EarthChan = (() => {
+      const box = document.querySelector(".hero-mascot"), speech = box.querySelector(".speech");
+      const HELLO = speech.textContent;
+      const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const flash = document.body.appendChild(Object.assign(document.createElement("div"), { className: "flash" }));
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+      const REST = 3000;                                  // idle dancing between two moves
+      const ACTS = {                                      // in the order she plays them
+        wave:    { name: "Wave hello",  say: "Hi there, neighbor!",           ms: 4600 },
+        whistle: { name: "Whistle",     say: "♪ Fwee-fwee ♪",       ms: 5200 },
+        jump:    { name: "Big jumps",   say: "Boing! Boing!",                 ms: 4500 },
+        love:    { name: "Love",        say: "I love fresh laundry!",         ms: 5000 },
+        spin:    { name: "Spin cycle",  say: "Spin cycle! Wheee!",            ms: 4500 },
+        bloom:   { name: "Bloom",       say: "Fresh as a daisy!",             ms: 5000 },
+        sparkle: { name: "Sparkle",     say: "Squeaky clean!",                ms: 4800 },
+        photo:   { name: "Say cheese",  say: "Say cheese!",                   ms: 5200,
+                   async during() {
+                     await wait(2000);
+                     box.classList.add("snap"); flash.classList.remove("on"); void flash.offsetWidth; flash.classList.add("on");
+                     speech.textContent = "Snap! Looking fresh!";
+                     await wait(350); box.classList.remove("snap");
+                   } },
+        sleepy:  { name: "Nap",         say: "Zzz… the dryer's so warm", ms: 5800 }
+      };
+      const ORDER = Object.keys(ACTS);
+      let busy = false, next = 0;
+      async function play(name) {
+        if (busy) return;
+        const a = ACTS[name];
+        busy = true;
+        box.classList.add(name); speech.textContent = a.say;
+        await Promise.all([wait(a.ms), a.during ? a.during() : null]);
+        box.classList.remove(name); speech.textContent = HELLO;
+        busy = false;
+      }
+      let auto = !calm;
+      async function loop() {
+        if (auto && !busy && !document.hidden && box.getBoundingClientRect().bottom > 0) {   // only while she's on screen
+          await play(ORDER[next]);
+          next = (next + 1) % ORDER.length;
+        }
+        setTimeout(loop, REST);
+      }
+      setTimeout(loop, REST);
+      box.querySelector("svg").addEventListener("click", () => { if (!calm) play("photo"); });
+      return { ACTS, ORDER, REST, play, setAuto: on => { auto = on; }, isBusy: () => busy, restart: () => { next = 0; if (!busy) { next = 1; play(ORDER[0]); } } };
+    })();
+    // mascot:end
 
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.querySelectorAll("svg").forEach(el => { try { el.pauseAnimations(); } catch (e) {} });
