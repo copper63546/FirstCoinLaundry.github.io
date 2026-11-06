@@ -478,7 +478,18 @@
     /* Phones: drop the shop name and shorten the buttons so Menu, Check my order and Call fit */
     @media (max-width: 520px) { .brand-name { display: none; } .btn-order svg { display: none; } }
     .order-short { display: none; }
-    @media (max-width: 380px) { .call-txt, .order-long { display: none; } .order-short { display: inline; } .nav-right .btn-sm { padding: 8px 12px; } }
+    @media (max-width: 430px) { .order-long { display: none; } .order-short { display: inline; } .nav-right { gap: 6px; } .nav-right .btn-sm { padding: 8px 12px; } }
+    @media (max-width: 360px) { .call-txt { display: none; } }
+    /* Phones: the menu opens as a centered panel under the top bar, and section headers scroll away
+       with the page instead of sticking over the tables and text below them */
+    @media (max-width: 760px) {
+      .menu { position: static; }
+      .menu-list { position: fixed; left: 16px; right: 16px; top: 72px; width: auto; max-height: calc(100vh - 96px);
+        overflow-y: auto; z-index: 20; }
+      .menu-list a { text-align: center; font-size: 1.05rem; }
+      .group > summary { position: static; backdrop-filter: none; background: var(--surface); }
+      .group, .group section { scroll-margin-top: 72px; }
+    }
 
     footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
