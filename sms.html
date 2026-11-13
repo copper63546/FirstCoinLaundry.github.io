@@ -39,21 +39,33 @@
       <h2>How to sign up</h2>
       <p>Signing up takes two steps: you ask for texts at the counter, then you confirm by replying YES. Texts are optional.</p>
       <ol>
-        <li>When you drop off a wash &amp; fold order at <b>4877 Memorial Dr, Stone Mountain, GA 30083</b>, read the text updates notice at the counter (shown below). If you want texts, give the attendant your mobile number and tell them you agree. The attendant checks the text updates box on your order only if you ask.</li>
+        <li>When you drop off a wash &amp; fold order at <b>4877 Memorial Dr, Stone Mountain, GA 30083</b>, fill out the text updates sign-up form at the counter (shown below): write your mobile phone number and check the box to agree. Texts are only set up if you check the box.</li>
         <li>We send you one text asking you to confirm. It includes links to our Privacy Policy and SMS Terms.</li>
         <li>Reply <b>YES</b> to agree and opt in. You'll get a text confirming you're signed up.</li>
       </ol>
 
-      <h3 id="counter-notice">Step 1: The notice at our counter</h3>
-      <p>This notice is posted at the drop-off counter, next to where you give us your number:</p>
-      <div class="optin-sign" id="sign">
+      <h3 id="counter-notice">Step 1: The sign-up form at our counter</h3>
+      <p>This sign-up form is at the drop-off counter. To ask for texts, write your mobile phone number and check the box. The checkbox is never pre-checked, and you can leave it blank.</p>
+      <form class="optin-sign" id="sign" onsubmit="return false" aria-label="Wash and fold text updates sign-up form">
         <div class="optin-brand">First Coin Laundry</div>
-        <div class="optin-title">Wash &amp; Fold Text Updates</div>
-        <p class="optin-check"><span class="box" aria-hidden="true"></span><b>Yes, text me updates about my wash &amp; fold orders.</b></p>
-        <p class="optin-terms">By asking for texts and giving us your mobile number, you agree to receive text messages from First Coin Laundry about your wash &amp; fold orders (order received, ready for pickup, and pickup reminders) at that number. We'll send one text to confirm; reply YES to opt in. Msg frequency varies, usually 1-3 msgs per order. Msg &amp; data rates may apply. Reply HELP for help, STOP to opt out at any time. Consent is not a condition of purchase. No marketing messages.</p>
+        <div class="optin-title">Wash &amp; Fold Text Updates Sign-Up</div>
+        <div class="optin-field">
+          <label for="optin-name">Name</label>
+          <input id="optin-name" name="name" type="text" autocomplete="name">
+        </div>
+        <div class="optin-field">
+          <label for="optin-phone">Mobile phone number <span class="req">(required for texts)</span></label>
+          <input id="optin-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(___) ___-____">
+        </div>
+        <p class="optin-check"><label><input type="checkbox" name="sms_consent" value="yes"> <b>Yes, text me updates about my wash &amp; fold orders at the mobile number above.</b></label></p>
+        <p class="optin-terms">By checking this box and giving us your mobile number, you agree to receive text messages from First Coin Laundry about your wash &amp; fold orders (order received, ready for pickup, and pickup reminders) at that number. We'll send one text to confirm; reply YES to opt in. Msg frequency varies, usually 1-3 msgs per order. Msg &amp; data rates may apply. Reply HELP for help, STOP to opt out at any time. Consent is not a condition of purchase. No marketing messages.</p>
         <p class="optin-links">Privacy Policy: copper63546.github.io/FirstCoinLaundry.github.io/privacy.html<br>SMS Terms: copper63546.github.io/FirstCoinLaundry.github.io/sms-terms.html</p>
-      </div>
-      <p class="no-print"><button class="print-btn" type="button" onclick="window.print()">Print this notice</button></p>
+        <div class="optin-field optin-date">
+          <label for="optin-date">Date</label>
+          <input id="optin-date" name="date" type="text">
+        </div>
+      </form>
+      <p class="no-print"><button class="print-btn" type="button" onclick="window.print()">Print this form</button></p>
 
       <h3>Step 2: The sign-up text</h3>
       <p>This is the sign-up text you'll receive:</p>

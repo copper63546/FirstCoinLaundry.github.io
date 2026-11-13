@@ -71,6 +71,13 @@ li { margin: 4px 0; }
 .optin-check { font-size: 1.1rem; margin: 0 0 10px; }
 .optin-check .box { display: inline-block; width: 20px; height: 20px; border: 2px solid #0e1a33; border-radius: 4px; vertical-align: -4px; margin-right: 10px; }
 .optin-terms { font-size: .95rem; margin: 0 0 10px; }
+.optin-field { margin: 0 0 12px; }
+.optin-field label { display: block; font-weight: 600; margin-bottom: 4px; }
+.optin-field .req { font-weight: 400; color: #4d5b75; font-size: .9em; }
+.optin-field input { width: 100%; font: inherit; color: #0e1a33; background: #fff; border: 2px solid #0e1a33; border-radius: 8px; padding: 8px 10px; }
+.optin-date { margin: 12px 0 0; max-width: 220px; }
+.optin-check label { cursor: pointer; }
+.optin-check input[type="checkbox"] { width: 20px; height: 20px; vertical-align: -4px; margin: 0 8px 0 0; accent-color: #1f4fd1; }
 .optin-links { font-size: .85rem; color: #4d5b75; margin: 0; overflow-wrap: anywhere; }
 .print-btn { font: inherit; font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--primary); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
 @media print {
