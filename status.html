@@ -85,15 +85,10 @@
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script>
-    // The store's POS uploads wf-status.json to the "wf-status" branch of this site's repo.
-    // Read it through the GitHub API first (always fresh), then the raw file as a backup.
-    const REPO = "copper63546/FirstCoinLaundry.github.io";
-    const SOURCES = [
-      () => fetch(`https://api.github.com/repos/${REPO}/contents/wf-status.json?ref=wf-status`,
-                  { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-store" }),
-      () => fetch(`https://raw.githubusercontent.com/${REPO}/wf-status/wf-status.json?t=${Date.now()}`, { cache: "no-store" })
-    ];
+    // The store's POS uploads the order list to a PRIVATE repo. The status Worker (STATUS_API in config.js)
+    // reads it and answers for one W&F# at a time, so the full list is never public.
     const els = {
       form: document.getElementById("lookupForm"), input: document.getElementById("wfNumber"),
       box: document.getElementById("result"), badge: document.getElementById("badge"),
@@ -101,14 +96,10 @@
       note: document.getElementById("updatedNote")
     };
 
-    async function loadStatus() {
-      for (const get of SOURCES) {
-        try {
-          const r = await get();
-          if (r.ok) return await r.json();
-        } catch (e) { /* try the next source */ }
-      }
-      throw new Error("unavailable");
+    async function loadStatus(num) {
+      const r = await fetch(`${window.STATUS_API}/status?wf=${encodeURIComponent(num)}`, { cache: "no-store" });
+      if (!r.ok) throw new Error("unavailable");
+      return await r.json();   // { wf, updated, order: {stage, dropped, changed} | null }
     }
 
     // Same rules as the POS: "W&F#12", "wf 12", "#12", "12" -> "12";  "a3" -> "A3"
@@ -141,13 +132,13 @@
       show("missing", "…", `Checking W&F#${num}…`, "");
       let data;
       try {
-        data = await loadStatus();
+        data = await loadStatus(num);
       } catch (e) {
         show("error", "!", "Order lookup isn't available right now",
              "Please try again in a few minutes, or call us at (404) 330-8260.");
         return;
       }
-      const o = (data.orders || {})[num];
+      const o = data.order;
       els.note.textContent = data.updated ? "Store system last updated " + fmtTime(data.updated) + "." : "";
       if (!o) {
         show("missing", "?", `We couldn't find W&F#${num}`,
