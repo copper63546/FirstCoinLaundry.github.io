@@ -1,0 +1,19 @@
+{
+ "orders": {
+  "1": {
+   "status": "ready"
+  },
+  "2": {
+   "ahead": 0,
+   "ready_by": "2026-11-20T21:03",
+   "status": "processing"
+  },
+  "3": {
+   "ahead": 1,
+   "ready_by": "2026-11-20T21:26",
+   "status": "processing"
+  }
+ },
+ "store": "First Coin Laundry",
+ "updated": "2026-11-21T00:49:17"
+}
