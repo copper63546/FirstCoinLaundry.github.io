@@ -85,10 +85,16 @@
     </div>
   </footer>
 
-  <script src="config.js"></script>
   <script>
-    // The store's POS uploads the order list to a PRIVATE repo. The status Worker (STATUS_API in config.js)
-    // reads it and answers for one W&F# at a time, so the full list is never public.
+    // The store's POS uploads wf-status.json to the "wf-status" branch of this site's repo. It holds only
+    // W&F numbers and their status (+ orders ahead / estimated ready time while processing) - no names,
+    // phone numbers, weights or prices. Read it through the GitHub API first (fresh), then the raw file.
+    const REPO = "copper63546/FirstCoinLaundry.github.io";
+    const SOURCES = [
+      () => fetch(`https://api.github.com/repos/${REPO}/contents/wf-status.json?ref=wf-status`,
+                  { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-store" }),
+      () => fetch(`https://raw.githubusercontent.com/${REPO}/wf-status/wf-status.json?t=${Date.now()}`, { cache: "no-store" })
+    ];
     const els = {
       form: document.getElementById("lookupForm"), input: document.getElementById("wfNumber"),
       box: document.getElementById("result"), badge: document.getElementById("badge"),
@@ -96,10 +102,28 @@
       note: document.getElementById("updatedNote")
     };
 
-    async function loadStatus(num) {
-      const r = await fetch(`${window.STATUS_API}/status?wf=${encodeURIComponent(num)}`, { cache: "no-store" });
-      if (!r.ok) throw new Error("unavailable");
-      return await r.json();   // { wf, updated, order: {stage, dropped, changed} | null }
+    async function loadStatus() {
+      for (const get of SOURCES) {
+        try {
+          const r = await get();
+          if (r.ok) return await r.json();
+        } catch (e) { /* try the next source */ }
+      }
+      throw new Error("unavailable");
+    }
+
+    // "2026-11-20T16:45" (or "16:45" = today) -> "4:45 PM", or "Sat 10:15 AM" when not today
+    function fmtReady(v) {
+      if (!v) return "";
+      const d = new Date(/^\d{1,2}:\d{2}$/.test(v) ? new Date().toDateString() + " " + v : v);
+      if (isNaN(d)) return "";
+      const time = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+      return d.toDateString() === new Date().toDateString() ? time
+        : d.toLocaleDateString("en-US", { weekday: "short" }) + " " + time;
+    }
+    function readyPassed(v) {
+      const d = new Date(/^\d{1,2}:\d{2}$/.test(v || "") ? new Date().toDateString() + " " + v : v);
+      return !isNaN(d) && d < new Date();
     }
 
     // Same rules as the POS: "W&F#12", "wf 12", "#12", "12" -> "12";  "a3" -> "A3"
@@ -107,11 +131,6 @@
       return text.toUpperCase().replace(/W\s*&\s*F|WF|W-|#|\s/g, "").replace(/^([A-Z]*)0+(\d)/, "$1$2");
     }
 
-    function fmtDay(iso) {
-      if (!iso) return "";
-      const d = new Date(iso.length <= 10 ? iso + "T12:00:00" : iso);
-      return isNaN(d) ? "" : d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-    }
     function fmtTime(iso) {
       const d = new Date(iso);
       return isNaN(d) ? "" : d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
@@ -132,26 +151,37 @@
       show("missing", "…", `Checking W&F#${num}…`, "");
       let data;
       try {
-        data = await loadStatus(num);
+        data = await loadStatus();
       } catch (e) {
         show("error", "!", "Order lookup isn't available right now",
              "Please try again in a few minutes, or call us at (404) 330-8260.");
         return;
       }
-      const o = data.order;
+      const o = (data.orders || {})[num];
+      const status = o && (o.status || o.stage);
       els.note.textContent = data.updated ? "Store system last updated " + fmtTime(data.updated) + "." : "";
       if (!o) {
         show("missing", "?", `We couldn't find W&F#${num}`,
              "Check the number on your ticket. Orders picked up more than a week ago aren't listed. Still stuck? Call (404) 330-8260.");
-      } else if (o.stage === "ready") {
+      } else if (status === "ready") {
         show("ready", "✓", `W&F#${num} is ready for pickup!`,
-             `Dropped off ${fmtDay(o.dropped)}. Come get it any time at 4877 Memorial Dr. We're open 24/7.`);
-      } else if (o.stage === "picked_up") {
+             "Come get it any time at 4877 Memorial Dr. We're open 24/7.");
+      } else if (status === "picked_up") {
         show("picked_up", "✓", `W&F#${num} was picked up`,
-             `Dropped off ${fmtDay(o.dropped)}, picked up ${fmtTime(o.changed)}. Not you? Call (404) 330-8260.`);
+             "This order has already been collected. Not you? Call (404) 330-8260.");
       } else {
-        show("processing", "…", `W&F#${num} is being processed`,
-             `Dropped off ${fmtDay(o.dropped)}. We're washing, drying or folding it. Check back soon.`);
+        const parts = [];
+        if (typeof o.ahead === "number") {
+          parts.push(o.ahead === 0 ? "Your order is next in line." :
+                     `${o.ahead} order${o.ahead === 1 ? "" : "s"} ahead of you.`);
+        }
+        if (o.ready_by) {
+          parts.push(readyPassed(o.ready_by) ? "It should be ready any minute now."
+                                             : `Estimated ready around ${fmtReady(o.ready_by)}.`);
+        }
+        parts.push(parts.length ? "Times are estimates."
+                                : "We're washing, drying or folding it. Check back soon.");
+        show("processing", "…", `W&F#${num} is being processed`, parts.join(" "));
       }
     }
 
