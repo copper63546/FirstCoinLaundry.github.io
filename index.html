@@ -398,7 +398,7 @@
     .note { color: var(--muted); font-size: .9rem; margin-top: 14px; }
 
     /* ---------- Gallery ---------- */
-    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 14px; }
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; grid-auto-flow: dense; gap: 14px; }
     .gallery figure { margin: 0; position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); }
     .gallery figure.big { grid-column: span 2; grid-row: span 2; }
     .gallery figure.wide { grid-column: span 2; }
@@ -614,9 +614,9 @@
         <span class="brand-name">First Coin Laundry</span>
       </a>
       <nav class="nav-links" aria-label="Sections">
+        <a href="#photos">Photos</a>
         <a href="#wash-fold">Wash &amp; Fold</a>
         <a href="#how">Self-service</a>
-        <a href="#photos">Photos</a>
         <a href="#location">Location &amp; Hours</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -624,9 +624,9 @@
         <details class="menu">
           <summary class="btn btn-ghost btn-sm" aria-label="Open menu">Menu ▾</summary>
           <nav class="menu-list" aria-label="Menu">
+            <a href="#g-photos">Photos</a>
             <a href="#g-wf">Wash &amp; fold</a>
             <a href="#g-self">Self-service laundry</a>
-            <a href="#g-photos">Photos</a>
             <a href="#g-visit">Location &amp; hours</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -748,6 +748,40 @@
     </div>
 
     <div class="groups">
+    <!-- ================= GROUP: PHOTOS ================= -->
+    <details class="group" id="g-photos" open>
+      <summary><div class="wrap">
+        <span class="g-ico"><svg><use href="#i-sparkle"/></svg></span>
+        <span class="g-txt"><b>Photos</b><small>Take a look inside</small></span>
+        <span class="chev" aria-hidden="true"></span>
+      </div></summary>
+
+    <!-- ================= PHOTOS ================= -->
+    <section id="photos" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Photos</div>
+          <h2>Take a look inside</h2>
+        </div>
+        <div class="gallery">
+          <figure class="full">
+            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy">
+            <figcaption>Storefront</figcaption>
+          </figure>
+          <figure class="big">
+            <img src="images/dryers.jpg" alt="Wall of stacked Dexter dryers" loading="lazy">
+            <figcaption>Dryers</figcaption>
+          </figure>
+          <figure class="big">
+            <img src="images/interior.jpg" alt="Open interior with pool table and entrance" loading="lazy">
+            <figcaption>Pool table &amp; entrance</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    </details>
+
     <!-- ================= GROUP: WASH & FOLD ================= -->
     <details class="group" id="g-wf">
       <summary><div class="wrap">
@@ -948,40 +982,6 @@
     </section>
     </details>
 
-    <!-- ================= GROUP: PHOTOS ================= -->
-    <details class="group" id="g-photos">
-      <summary><div class="wrap">
-        <span class="g-ico"><svg><use href="#i-sparkle"/></svg></span>
-        <span class="g-txt"><b>Photos</b><small>Take a look inside</small></span>
-        <span class="chev" aria-hidden="true"></span>
-      </div></summary>
-
-    <!-- ================= PHOTOS ================= -->
-    <section id="photos" class="alt">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Photos</div>
-          <h2>Take a look inside</h2>
-        </div>
-        <div class="gallery">
-          <figure class="full">
-            <img src="images/storefront.jpg" alt="First Coin Laundry storefront on Memorial Drive" loading="lazy">
-            <figcaption>Storefront</figcaption>
-          </figure>
-          <figure class="big">
-            <img src="images/dryers.jpg" alt="Wall of stacked Dexter dryers" loading="lazy">
-            <figcaption>Dryers</figcaption>
-          </figure>
-          <figure class="big">
-            <img src="images/interior.jpg" alt="Open interior with pool table and entrance" loading="lazy">
-            <figcaption>Pool table &amp; entrance</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    </details>
-
     <!-- ================= GROUP: LOCATION &AMP; HOURS ================= -->
     <details class="group" id="g-visit">
       <summary><div class="wrap">
@@ -1135,7 +1135,7 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // ---- Dropdown groups ----
-    // Groups start closed. Phones keep one open at a time.
+    // Photos starts open; the rest start closed. Phones keep one open at a time.
     const groups = [...document.querySelectorAll("details.group")];
     const menu = document.querySelector("details.menu");
     const phone = matchMedia("(max-width: 760px)");
